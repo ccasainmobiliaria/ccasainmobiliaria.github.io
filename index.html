@@ -1,0 +1,1134 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-X6VM66PDE3"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-X6VM66PDE3');
+</script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ccasa Inmobiliaria | Propiedades Exclusivas</title>
+    
+    <!-- SEO y Vista previa para WhatsApp -->
+    <meta name="description" content="Ccasa Inmobiliaria - 11 años de experiencia. Alquiler y venta de departamentos, casas y locales comerciales.">
+    <meta property="og:title" content="Ccasa Inmobiliaria | Catálogo de Propiedades">
+    <meta property="og:description" content="Encuentra tu próximo hogar o inversión. Venta y alquiler en todo Lima.">
+    <link rel="icon" href="favicon.png" type="image/png"> 
+    
+    <style>
+        html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: #333; margin: 0; background-color: #f9f8f6; } /* Beige cálido neutro para acoplar fondo marrón */
+        
+        /* Tema de marca (Tomado del logotipo #341b18 Dark Coffee) */
+        header { background: #341b18; color: white; padding: 25px 20px; text-align: center; }
+        .logo-header { max-height: 130px; object-fit: contain; border-radius: 8px; margin-bottom: 5px; }
+        
+        /* Menú Sticky */
+        .nav-sticky { position: -webkit-sticky; position: sticky; top: 0; z-index: 1000; background: #553026; padding: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
+        .nav-sticky a { color: white; text-decoration: none; font-size: 13px; border: 1px solid rgba(255,255,255,0.4); padding: 6px 14px; border-radius: 20px; transition: 0.3s; font-weight: 500; }
+        .nav-sticky a:hover { background: white; color: #553026; }
+        .nav-sticky .btn-contacto { background: #28a745; border: none; font-weight: bold; }
+
+        .container { padding: 20px; max-width: 1000px; margin: auto; }
+        .muro-seguridad { background: #fff3f3; border: 2px solid #d9534f; padding: 25px; border-radius: 12px; margin: 30px 0; }
+        .propiedades-count { background: #fdf6f2; padding: 15px; border-left: 5px solid #553026; border-radius: 4px; margin-bottom: 30px; }
+        
+        .equipo-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; }
+        .card { background: white; border: 1px solid #eadfd4; padding: 20px; border-radius: 8px; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        
+        footer { background: #1a1514; color: white; text-align: center; padding: 40px 20px; margin-top: 50px; border-top: 4px solid #553026;}
+        input, select, textarea { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box; }
+        
+        /* Estilos de Tarjetas de Propiedades */
+        .tarjeta-prop { border: 1px solid #eadfd4; border-radius: 15px; background: #fff; margin-bottom: 50px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); overflow: hidden; }
+        .tarjeta-header { padding: 20px; text-align: center; color: white; }
+        .galeria-scroll { display: flex; overflow-x: auto; gap: 12px; padding: 10px 0 20px 0; scroll-behavior: smooth; }
+        .galeria-scroll img { width: 240px; height: 160px; object-fit: cover; border-radius: 8px; flex-shrink: 0; box-shadow: 0 3px 6px rgba(0,0,0,0.1); }
+        .precio-tag { font-size: 22px; font-weight: bold; color: #28a745; margin: 10px 0; display: block; }
+        .btn-visita { padding: 15px; border: none; border-radius: 8px; width: 100%; font-weight: bold; cursor: pointer; color: white; margin-top: 15px; transition: 0.3s opacity; }
+        .btn-visita:hover { opacity: 0.9; }
+
+        .nosotros-box { background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); margin-bottom: 30px; }
+        .valores-list { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; list-style: none; padding: 0; }
+        .valores-list li { background: #553026; color: white; padding: 8px 15px; border-radius: 20px; font-size: 14px; }
+
+/* --- ESTILOS PARA LA GALERÍA EMERGENTE (LIGHTBOX) --- */
+.galeria-scroll img { cursor: pointer; transition: transform 0.2s; }
+.galeria-scroll img:hover { transform: scale(1.03); }
+
+#lightbox-modal {
+    display: none; /* Oculto por defecto */
+    position: fixed;
+    z-index: 2000; /* Para que quede por encima del menú sticky */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.85); /* Fondo oscuro transparente */
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+#lightbox-img {
+    max-width: 90%;
+    max-height: 80vh;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+    object-fit: contain;
+}
+.lightbox-close {
+    position: absolute;
+    top: 15px;
+    right: 25px;
+    color: white;
+    font-size: 45px;
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 2001;
+}
+.lightbox-prev, .lightbox-next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    color: white;
+    font-size: 40px;
+    font-weight: bold;
+    cursor: pointer;
+    padding: 15px;
+    user-select: none;
+    background: rgba(0,0,0,0.4);
+    border-radius: 5px;
+    transition: 0.3s;
+}
+.lightbox-prev:hover, .lightbox-next:hover { background: rgba(0,0,0,0.8); }
+.lightbox-prev { left: 15px; }
+.lightbox-next { right: 15px; }
+
+/* Para celulares */
+@media (max-width: 600px) {
+    .lightbox-prev, .lightbox-next { padding: 10px; font-size: 30px; }
+}
+
+/* --- ESTILOS DEL BUSCADOR --- */
+        .buscador-container {
+            margin: 10px auto 40px auto;
+            text-align: center;
+            max-width: 800px;
+            position: relative;
+            padding: 0 20px;
+        }
+        .buscador-input {
+            width: 100%;
+            padding: 16px 25px;
+            font-size: 16px;
+            border: 2px solid #553026;
+            border-radius: 30px;
+            box-sizing: border-box;
+            outline: none;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+            font-family: inherit;
+        }
+        .buscador-input:focus {
+            border-color: #28a745;
+            box-shadow: 0 4px 15px rgba(40, 167, 69, 0.2);
+        }
+        .mensaje-no-resultados {
+            display: none;
+            color: #d9534f;
+            font-weight: bold;
+            margin-top: 15px;
+            background: #fff3f3;
+            padding: 10px;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <!-- Logotipo implementado adaptando marca corporativa -->
+    <h1 style="display:none;">Ccasa Inmobiliaria</h1>
+    <img src="img/logo.jpg" alt="Logo de Ccasa Inmobiliaria" class="logo-header">
+    <p style="margin: 5px 0 0 0; opacity: 0.85; font-size: 14px;">Asesoría Profesional | Registro PN-0374 MVCS</p>
+</header>
+
+<nav class="nav-sticky">
+    <a href="nosotros.html" target="_blank">👤 Nosotros</a>
+    <a href="#ventas">🏠 Ver Ventas</a>
+    <a href="#alquileres">🔑 Ver Alquileres</a>
+    <a href="#comercial">🏬 Locales y Terrenos</a>
+    <a href="#otros">✨ Otros Proyectos</a>
+    <a href="#contacto" class="btn-contacto">📝 REGISTRAR VISITA</a>
+</nav>
+
+<div class="container">
+
+
+    <!-- BUSCADOR (Lo primero que verán) -->
+    <div class="buscador-container" style="margin-top: 20px;">
+        <input type="text" id="inputBuscador" class="buscador-input" placeholder="🔍 Buscar por distrito, tipo (Dpto, Local, Terreno) o precio...">
+        <div id="mensajeSinResultados" class="mensaje-no-resultados">
+            No se encontraron propiedades que coincidan con tu búsqueda.
+        </div>
+    </div>
+
+    
+    
+
+ 
+    <h2 id="alquileres" style="border-bottom: 3px solid #553026; padding-bottom: 10px; margin-top: 50px;">🔑 PROPIEDADES EN ALQUILER</h2>
+
+    
+    
+    <!-- PROPIEDAD 1 -->
+    <article id="propiedad1" class="tarjeta-prop">
+        <div class="tarjeta-header" style="background: #341b18;">
+            <h2 style="margin: 0;">Dpto. Moderno en Pueblo Libre (Piso 9)</h2>
+            <p style="margin: 5px 0 0 0;">📍 Plaza La Bandera</p>
+        </div>
+        <div style="padding: 25px;">
+            <div class="galeria-scroll">
+                <img src="img/propiedad1/1.jpg" alt="Foto 1" loading="lazy">
+                <img src="img/propiedad1/2.jpg" alt="Foto 2" loading="lazy">
+                <img src="img/propiedad1/3.jpg" alt="Foto 3" loading="lazy">
+                <img src="img/propiedad1/4.jpg" alt="Foto 4" loading="lazy">
+                <img src="img/propiedad1/5.jpg" alt="Foto 5" loading="lazy">
+                <img src="img/propiedad1/6.jpg" alt="Foto 6" loading="lazy">
+                <img src="img/propiedad1/7.jpg" alt="Foto 7" loading="lazy">
+                <img src="img/propiedad1/8.jpg" alt="Foto 8" loading="lazy">
+                <img src="img/propiedad1/9.jpg" alt="Foto 9" loading="lazy">
+                <img src="img/propiedad1/10.jpg" alt="Foto 10" loading="lazy">
+                <img src="img/propiedad1/11.jpg" alt="Foto 11" loading="lazy">
+                <img src="img/propiedad1/12.jpg" alt="Foto 12" loading="lazy">
+                <img src="img/propiedad1/13.jpg" alt="Foto 13" loading="lazy">
+                <img src="img/propiedad1/14.jpg" alt="Foto 14" loading="lazy">
+                <img src="img/propiedad1/15.jpg" alt="Foto 15" loading="lazy">
+                <img src="img/propiedad1/16.jpg" alt="Foto 16" loading="lazy">
+                <img src="img/propiedad1/17.jpg" alt="Foto 17" loading="lazy">
+                <img src="img/propiedad1/18.jpg" alt="Foto 18" loading="lazy">
+                <img src="img/propiedad1/19.jpg" alt="Foto 19" loading="lazy">
+                <img src="img/propiedad1/20.jpg" alt="Foto 20" loading="lazy">
+                <img src="img/propiedad1/21.jpg" alt="Foto 21" loading="lazy">
+                <img src="img/propiedad1/22.jpg" alt="Foto 22" loading="lazy">
+                <img src="img/propiedad1/23.jpg" alt="Foto 23" loading="lazy">
+                <img src="img/propiedad1/24.jpg" alt="Foto 24" loading="lazy">
+            </div>
+            <span class="precio-tag">Alquiler: S/ 2,500</span>
+            <p style="font-size: 14px; color: #666;">*Incluye Mantenimiento (S/ 380), agua del dpto, vigilancia y limpieza.</p>
+            <ul style="font-size: 15px; columns: 1;">
+                <li><strong>Distribución:</strong> 2 Dormitorios c/u con baño incorporado y clósets.</li>
+                <li><strong>Interiores:</strong> Sala comedor, 1/2 baño de visita, kitchenet abierto con granito, área de lavandería con terma.</li>
+                <li><strong>Áreas comunes:</strong> Sala de reuniones, BBQ, juegos para niños, tendal, 2 ascensores (1 para discap.).</li>
+                <li><strong>Condiciones:</strong> 1 mes de adelanto x 2 de garantía.</li>
+            </ul>
+            <button onclick="location.href='#contacto'" class="btn-visita" style="background: #553026;">CITAS - C. MUÑOZ</button>
+        </div>
+    </article>
+
+    
+    <!-- PROPIEDAD 8 -->
+    <article id="propiedad8" class="tarjeta-prop">
+        <div class="tarjeta-header" style="background: #341b18;">
+            <h2 style="margin: 0;">Dpto. en Callao - Urb. Colonial</h2>
+            <p style="margin: 5px 0 0 0;">📍 Jr. Virrey Toledo (Cerca a Plaza Vea)</p>
+        </div>
+        <div style="padding: 25px;">
+            <div class="galeria-scroll">
+                <img src="img/propiedad8/1.jpg" alt="Foto 1" loading="lazy">
+                <img src="img/propiedad8/2.jpg" alt="Foto 2" loading="lazy">
+                <img src="img/propiedad8/3.jpg" alt="Foto 3" loading="lazy">
+                <img src="img/propiedad8/4.jpg" alt="Foto 4" loading="lazy">
+                <img src="img/propiedad8/5.jpg" alt="Foto 5" loading="lazy">
+                <img src="img/propiedad8/6.jpg" alt="Foto 6" loading="lazy">
+                <img src="img/propiedad8/7.jpg" alt="Foto 7" loading="lazy">
+                <img src="img/propiedad8/8.jpg" alt="Foto 8" loading="lazy">
+                <img src="img/propiedad8/9.jpg" alt="Foto 9" loading="lazy">
+                <img src="img/propiedad8/10.jpg" alt="Foto 10" loading="lazy">
+                <img src="img/propiedad8/11.jpg" alt="Foto 11" loading="lazy">
+                <img src="img/propiedad8/12.jpg" alt="Foto 12" loading="lazy">
+                <img src="img/propiedad8/13.jpg" alt="Foto 13" loading="lazy">
+                <img src="img/propiedad8/14.jpg" alt="Foto 14" loading="lazy">
+                <img src="img/propiedad8/15.jpg" alt="Foto 15" loading="lazy">
+                <img src="img/propiedad8/16.jpg" alt="Foto 16" loading="lazy">
+                <img src="img/propiedad8/17.jpg" alt="Foto 17" loading="lazy">
+                <img src="img/propiedad8/18.jpg" alt="Foto 18" loading="lazy">
+                <img src="img/propiedad8/19.jpg" alt="Foto 19" loading="lazy">
+                <img src="img/propiedad8/20.jpg" alt="Foto 20" loading="lazy">
+                <img src="img/propiedad8/21.jpg" alt="Foto 21" loading="lazy">
+                <img src="img/propiedad8/22.jpg" alt="Foto 22" loading="lazy">
+                <img src="img/propiedad8/23.jpg" alt="Foto 23" loading="lazy">
+                <img src="img/propiedad8/24.jpg" alt="Foto 24" loading="lazy">
+                <img src="img/propiedad8/25.jpg" alt="Foto 25" loading="lazy">
+            </div>
+            <span class="precio-tag">Alquiler: S/ 2,300 (Negociable)</span>
+            <ul style="font-size: 15px;">
+                <li><strong>Área:</strong> 120 m² Aprox | 2do piso con escaleras independientes.</li>
+                <li><strong>Distribución:</strong> Sala comedor con balcón, 2 ambientes vista exterior, cocina pequeña, 2 dormitorios (Principal c/ baño).</li>
+                <li><strong>Extras:</strong> Medidor de luz independiente. Acepta mascota chica. Vigilancia S/ 75.</li>
+                <li><strong>Condiciones:</strong> 1 mes adelanto x 2 meses garantía.</li>
+            </ul>
+            <button onclick="location.href='#contacto'" class="btn-visita" style="background: #553026;">CITAS - C. MUÑOZ</button>
+        </div>
+    </article>
+
+   
+    <!-- PROPIEDAD 9 -->
+    <article id="propiedad9" class="tarjeta-prop">
+        <div class="tarjeta-header" style="background: #341b18;">
+            <h2 style="margin: 0;">Duplex Torres de Limatambo</h2>
+            <p style="margin: 5px 0 0 0;">📍 San Borja (Cerca Open Plaza Angamos)</p>
+        </div>
+        <div style="padding: 25px;">
+            <div class="galeria-scroll">
+                <img src="img/propiedad9/1.jpg" alt="Foto 1" loading="lazy">
+                <img src="img/propiedad9/2.jpg" alt="Foto 2" loading="lazy">
+                <img src="img/propiedad9/3.jpg" alt="Foto 3" loading="lazy">
+                <img src="img/propiedad9/4.jpg" alt="Foto 4" loading="lazy">
+                <img src="img/propiedad9/5.jpg" alt="Foto 5" loading="lazy">
+                <img src="img/propiedad9/6.jpg" alt="Foto 6" loading="lazy">
+                <img src="img/propiedad9/7.jpg" alt="Foto 7" loading="lazy">
+                <img src="img/propiedad9/8.jpg" alt="Foto 8" loading="lazy">
+                <img src="img/propiedad9/9.jpg" alt="Foto 9" loading="lazy">
+                <img src="img/propiedad9/10.jpg" alt="Foto 10" loading="lazy">
+                <img src="img/propiedad9/11.jpg" alt="Foto 11" loading="lazy">
+                <img src="img/propiedad9/12.jpg" alt="Foto 12" loading="lazy">
+                <img src="img/propiedad9/13.jpg" alt="Foto 13" loading="lazy">
+                <img src="img/propiedad9/14.jpg" alt="Foto 14" loading="lazy">
+                <img src="img/propiedad9/15.jpg" alt="Foto 15" loading="lazy">
+                <img src="img/propiedad9/16.jpg" alt="Foto 16" loading="lazy">
+                <img src="img/propiedad9/17.jpg" alt="Foto 17" loading="lazy">
+                <img src="img/propiedad9/18.jpg" alt="Foto 18" loading="lazy">
+            </div>
+            <span class="precio-tag">Alquiler: S/ 2,600 (A tratar)</span>
+            <ul style="font-size: 15px;">
+                <li><strong>Área:</strong> 95 m² | 5to piso (escaleras descansadas).</li>
+                <li><strong>1er Nivel:</strong> Sala-comedor, 1/2 baño, cocina y lavandería.</li>
+                <li><strong>2do Nivel:</strong> 3 dormitorios espaciosos c/ clóset, 1 baño completo.</li>
+                <li><strong>Extras:</strong> Pisos de parquet, tanque elevado, cisterna. Luz/agua independientes.</li>
+            </ul>
+            <button onclick="location.href='#contacto'" class="btn-visita" style="background: #553026;">CITAS - C. MUÑOZ</button>
+        </div>
+    </article>
+
+    
+    <!-- PROPIEDAD 11 -->
+    <article id="propiedad11" class="tarjeta-prop">
+        <div class="tarjeta-header" style="background: #341b18;">
+            <h2 style="margin: 0;">Dpto. Amplio en Callao (150 m²)</h2>
+            <p style="margin: 5px 0 0 0;">📍 Urb. Colonial - Jr. Virrey Toledo</p>
+        </div>
+        <div style="padding: 25px;">
+            <div class="galeria-scroll">
+                <img src="img/propiedad11/1.jpg" alt="Foto 1" loading="lazy">
+                <img src="img/propiedad11/2.jpg" alt="Foto 2" loading="lazy">
+                <img src="img/propiedad11/3.jpg" alt="Foto 3" loading="lazy">
+                <img src="img/propiedad11/4.jpg" alt="Foto 4" loading="lazy">
+                <img src="img/propiedad11/5.jpg" alt="Foto 5" loading="lazy">
+                <img src="img/propiedad11/6.jpg" alt="Foto 6" loading="lazy">
+                <img src="img/propiedad11/7.jpg" alt="Foto 7" loading="lazy">
+                <img src="img/propiedad11/8.jpg" alt="Foto 8" loading="lazy">
+                <img src="img/propiedad11/9.jpg" alt="Foto 9" loading="lazy">
+                <img src="img/propiedad11/10.jpg" alt="Foto 10" loading="lazy">
+                <img src="img/propiedad11/11.jpg" alt="Foto 11" loading="lazy">
+                <img src="img/propiedad11/12.jpg" alt="Foto 12" loading="lazy">
+                <img src="img/propiedad11/13.jpg" alt="Foto 13" loading="lazy">
+            </div>
+            <span class="precio-tag">Alquiler: S/ 1,700</span>
+            <ul style="font-size: 15px;">
+                <li><strong>Distribución:</strong> 2do Piso independiente. Sala comedor iluminada con balcón y vista a parque interno.</li>
+                <li><strong>Habitaciones:</strong> 2 dormitorios con área de clóset, 1 baño completo.</li>
+                <li><strong>Extras:</strong> Calle cerrada con rejas. Aparcamiento libre al frente.</li>
+            </ul>
+            <button onclick="location.href='#contacto'" class="btn-visita" style="background: #553026;">CITAS - C. MUÑOZ</button>
+        </div>
+    </article>
+
+
+    <h2 id="ventas" style="border-bottom: 3px solid #c0392b; padding-bottom: 10px; margin-top: 50px;">🏠 PROPIEDADES EN VENTA</h2>
+
+    <!-- PROPIEDAD 4 -->
+    <article id="propiedad4" class="tarjeta-prop">
+        <div class="tarjeta-header" style="background: #c0392b;">
+            <h2 style="margin: 0;">Casa de 5 Pisos (Vivienda/Comercio)</h2>
+            <p style="margin: 5px 0 0 0;">📍 Los Olivos - Calle Las Gemas</p>
+        </div>
+        <div style="padding: 25px;">
+            <div class="galeria-scroll">
+                <img src="img/propiedad4/1.jpg" alt="Foto 1" loading="lazy">
+                <img src="img/propiedad4/2.jpg" alt="Foto 2" loading="lazy">
+                <img src="img/propiedad4/3.jpg" alt="Foto 3" loading="lazy">
+                <img src="img/propiedad4/4.jpg" alt="Foto 4" loading="lazy">
+                <img src="img/propiedad4/5.jpg" alt="Foto 5" loading="lazy">
+                <img src="img/propiedad4/6.jpg" alt="Foto 6" loading="lazy">
+                <img src="img/propiedad4/7.jpg" alt="Foto 7" loading="lazy">
+                <img src="img/propiedad4/8.jpg" alt="Foto 8" loading="lazy">
+                <img src="img/propiedad4/9.jpg" alt="Foto 9" loading="lazy">
+                <img src="img/propiedad4/10.jpg" alt="Foto 10" loading="lazy">
+                <img src="img/propiedad4/11.jpg" alt="Foto 11" loading="lazy">
+                <img src="img/propiedad4/12.jpg" alt="Foto 12" loading="lazy">
+                <img src="img/propiedad4/13.jpg" alt="Foto 13" loading="lazy">
+                <img src="img/propiedad4/14.jpg" alt="Foto 14" loading="lazy">
+                <img src="img/propiedad4/15.jpg" alt="Foto 15" loading="lazy">
+                <img src="img/propiedad4/16.jpg" alt="Foto 16" loading="lazy">
+                <img src="img/propiedad4/17.jpg" alt="Foto 17" loading="lazy">
+                <img src="img/propiedad4/18.jpg" alt="Foto 18" loading="lazy">
+                <img src="img/propiedad4/19.jpg" alt="Foto 19" loading="lazy">
+                <img src="img/propiedad4/20.jpg" alt="Foto 20" loading="lazy">
+                <img src="img/propiedad4/21.jpg" alt="Foto 21" loading="lazy">
+                <img src="img/propiedad4/22.jpg" alt="Foto 22" loading="lazy">
+                <img src="img/propiedad4/23.jpg" alt="Foto 23" loading="lazy">
+                <img src="img/propiedad4/24.jpg" alt="Foto 24" loading="lazy">
+                <img src="img/propiedad4/25.jpg" alt="Foto 25" loading="lazy">
+                <img src="img/propiedad4/26.jpg" alt="Foto 26" loading="lazy">
+                <img src="img/propiedad4/27.jpg" alt="Foto 27" loading="lazy">
+                <img src="img/propiedad4/28.jpg" alt="Foto 28" loading="lazy">
+                <img src="img/propiedad4/29.jpg" alt="Foto 29" loading="lazy">
+                <img src="img/propiedad4/30.jpg" alt="Foto 30" loading="lazy">
+            </div>
+            <span class="precio-tag">Venta: US$ 310,000 (A tratar)</span>
+            <p style="font-size: 14px;"><strong>Área Terreno:</strong> 176.60 m² | <strong>Área Const.:</strong> 1230 m²</p>
+            <ul style="font-size: 15px;">
+                <li><strong>1er Piso:</strong> Cocheras, estudio, jardín, cocina, lavandería.</li>
+                <li><strong>2do Piso:</strong> 4 dormitorios (Principal con jacuzzi), 2 baños, Family room.</li>
+                <li><strong>3er y 4to Piso:</strong> Departamentos completos e independientes por piso (3 dorm, 2 baños c/u).</li>
+                <li><strong>5to Piso:</strong> Área de reuniones techada en madera y patio vista a calle.</li>
+            </ul>
+            <button onclick="location.href='#contacto'" class="btn-visita" style="background: #c0392b;">CITAS - C. MUÑOZ / A. KU</button>
+        </div>
+    </article>
+
+    <!-- PROPIEDAD 5 -->
+    <article id="propiedad5" class="tarjeta-prop">
+        <div class="tarjeta-header" style="background: #c0392b;">
+            <h2 style="margin: 0;">Casa en Venta - 3 Pisos</h2>
+            <p style="margin: 5px 0 0 0;">📍 Surco - A 2 cdras Av. Mariscal Castilla</p>
+        </div>
+        <div style="padding: 25px;">
+            <div class="galeria-scroll">
+                <img src="img/propiedad5/1.jpg" alt="Foto 1" loading="lazy">
+                <img src="img/propiedad5/2.jpg" alt="Foto 2" loading="lazy">
+                <img src="img/propiedad5/3.jpg" alt="Foto 3" loading="lazy">
+                <img src="img/propiedad5/4.jpg" alt="Foto 4" loading="lazy">
+                <img src="img/propiedad5/5.jpg" alt="Foto 5" loading="lazy">
+                <img src="img/propiedad5/6.jpg" alt="Foto 6" loading="lazy">
+                <img src="img/propiedad5/7.jpg" alt="Foto 7" loading="lazy">
+                <img src="img/propiedad5/8.jpg" alt="Foto 8" loading="lazy">
+                <img src="img/propiedad5/9.jpg" alt="Foto 9" loading="lazy">
+                <img src="img/propiedad5/10.jpg" alt="Foto 10" loading="lazy">
+                <img src="img/propiedad5/11.jpg" alt="Foto 11" loading="lazy">
+                <img src="img/propiedad5/12.jpg" alt="Foto 12" loading="lazy">
+                <img src="img/propiedad5/13.jpg" alt="Foto 13" loading="lazy">
+                <img src="img/propiedad5/14.jpg" alt="Foto 14" loading="lazy">
+                <img src="img/propiedad5/15.jpg" alt="Foto 15" loading="lazy">
+                <img src="img/propiedad5/16.jpg" alt="Foto 16" loading="lazy">
+                <img src="img/propiedad5/17.jpg" alt="Foto 17" loading="lazy">
+                <img src="img/propiedad5/18.jpg" alt="Foto 18" loading="lazy">
+                <img src="img/propiedad5/19.jpg" alt="Foto 19" loading="lazy">
+                <img src="img/propiedad5/20.jpg" alt="Foto 20" loading="lazy">
+                <img src="img/propiedad5/21.jpg" alt="Foto 21" loading="lazy">
+            </div>
+            <span class="precio-tag">Venta: US$ 480,000 (Negociable)</span>
+            <p style="font-size: 14px;"><strong>AT:</strong> 300 m² | <strong>AC:</strong> 174 m² | Parámetros para 4 pisos.</p>
+            <ul style="font-size: 15px;">
+                <li><strong>1er Piso:</strong> Sala, comedor (porcelanato), baño visita, cocina, cochera (3 autos), cuarto/baño servicio, jardín de 50 m².</li>
+                <li><strong>2do Piso:</strong> Dormitorio principal c/baño. 2 Dormitorios secundarios amplios. Pisos parquet.</li>
+                <li><strong>Extras:</strong> Instalaciones de agua, luz, baños y cocina 100% modernas y renovadas.</li>
+            </ul>
+            <button onclick="location.href='#contacto'" class="btn-visita" style="background: #c0392b;">CITAS - P. VÁSQUEZ</button>
+        </div>
+    </article>
+
+    <!-- PROPIEDAD 14 -->
+    <article id="propiedad14" class="tarjeta-prop">
+        <div class="tarjeta-header" style="background: #c0392b;">
+            <h2 style="margin: 0;">Dpto. Exclusivo en Valle Hermoso</h2>
+            <p style="margin: 5px 0 0 0;">📍 Surco - Av. Reynaldo Vivanco</p>
+        </div>
+        <div style="padding: 25px;">
+            <div class="galeria-scroll">
+                <img src="img/propiedad14/1.jpg" alt="Foto 1" loading="lazy">
+                <img src="img/propiedad14/2.jpg" alt="Foto 2" loading="lazy">
+                <img src="img/propiedad14/3.jpg" alt="Foto 3" loading="lazy">
+                <img src="img/propiedad14/4.jpg" alt="Foto 4" loading="lazy">
+                <img src="img/propiedad14/5.jpg" alt="Foto 5" loading="lazy">
+                <img src="img/propiedad14/6.jpg" alt="Foto 6" loading="lazy">
+                <img src="img/propiedad14/7.jpg" alt="Foto 7" loading="lazy">
+                <img src="img/propiedad14/8.jpg" alt="Foto 8" loading="lazy">
+                <img src="img/propiedad14/9.jpg" alt="Foto 9" loading="lazy">
+                <img src="img/propiedad14/10.jpg" alt="Foto 10" loading="lazy">
+                <img src="img/propiedad14/11.jpg" alt="Foto 11" loading="lazy">
+                <img src="img/propiedad14/12.jpg" alt="Foto 12" loading="lazy">
+                <img src="img/propiedad14/13.jpg" alt="Foto 13" loading="lazy">
+                <img src="img/propiedad14/14.jpg" alt="Foto 14" loading="lazy">
+                <img src="img/propiedad14/15.jpg" alt="Foto 15" loading="lazy">
+                <img src="img/propiedad14/16.jpg" alt="Foto 16" loading="lazy">
+                <img src="img/propiedad14/17.jpg" alt="Foto 17" loading="lazy">
+                <img src="img/propiedad14/18.jpg" alt="Foto 18" loading="lazy">
+                <img src="img/propiedad14/19.jpg" alt="Foto 19" loading="lazy">
+                <img src="img/propiedad14/20.jpg" alt="Foto 20" loading="lazy">
+                <img src="img/propiedad14/21.jpg" alt="Foto 21" loading="lazy">
+                <img src="img/propiedad14/22.jpg" alt="Foto 22" loading="lazy">
+            </div>
+            <span class="precio-tag">Venta: US$ 450,000</span>
+            <ul style="font-size: 15px;">
+                <li><strong>Área:</strong> 213.30 m² | 2do Piso | Ascensor directo.</li>
+                <li><strong>Distribución:</strong> Sala, comedor, bar, sala TV. 3 Habitaciones (Principal c/ WC y baño). Hab/Baño servicio.</li>
+                <li><strong>Acabados:</strong> Pisos de madera DD. Gran iluminación.</li>
+                <li><strong>Extras:</strong> 2 cocheras paralelas, depósito, vigilancia 24/7. Mant: S/ 950.</li>
+            </ul>
+            <button onclick="location.href='#contacto'" class="btn-visita" style="background: #c0392b;">CITAS - C. VÁSQUEZ</button>
+        </div>
+    </article>
+
+   <!-- PROPIEDAD 15 -->
+    <article id="propiedad15" class="tarjeta-prop">
+        <div class="tarjeta-header" style="background: #c0392b;">
+            <h2 style="margin: 0;">Lujoso Duplex en La Aurora</h2>
+            <p style="margin: 5px 0 0 0;">📍 Miraflores - Av. Tomás Marsano</p>
+        </div>
+        <div style="padding: 25px;">
+            <div class="galeria-scroll">
+                <img src="img/propiedad15/1.jpg" alt="Foto 1" loading="lazy">
+                <img src="img/propiedad15/2.jpg" alt="Foto 2" loading="lazy">
+                <img src="img/propiedad15/3.jpg" alt="Foto 3" loading="lazy">
+                <img src="img/propiedad15/4.jpg" alt="Foto 4" loading="lazy">
+                <img src="img/propiedad15/5.jpg" alt="Foto 5" loading="lazy">
+                <img src="img/propiedad15/6.jpg" alt="Foto 6" loading="lazy">
+                <img src="img/propiedad15/7.jpg" alt="Foto 7" loading="lazy">
+                <img src="img/propiedad15/8.jpg" alt="Foto 8" loading="lazy">
+                <img src="img/propiedad15/9.jpg" alt="Foto 9" loading="lazy">
+                <img src="img/propiedad15/10.jpg" alt="Foto 10" loading="lazy">
+                <img src="img/propiedad15/11.jpg" alt="Foto 11" loading="lazy">
+                <img src="img/propiedad15/12.jpg" alt="Foto 12" loading="lazy">
+                <img src="img/propiedad15/13.jpg" alt="Foto 13" loading="lazy">
+                <img src="img/propiedad15/14.jpg" alt="Foto 14" loading="lazy">
+                <img src="img/propiedad15/15.jpg" alt="Foto 15" loading="lazy">
+                <img src="img/propiedad15/16.jpg" alt="Foto 16" loading="lazy">
+                <img src="img/propiedad15/17.jpg" alt="Foto 17" loading="lazy">
+                <img src="img/propiedad15/18.jpg" alt="Foto 18" loading="lazy">
+                <img src="img/propiedad15/19.jpg" alt="Foto 19" loading="lazy">
+                <img src="img/propiedad15/20.jpg" alt="Foto 20" loading="lazy">
+                <img src="img/propiedad15/21.jpg" alt="Foto 21" loading="lazy">
+                <img src="img/propiedad15/22.jpg" alt="Foto 22" loading="lazy">
+                <img src="img/propiedad15/23.jpg" alt="Foto 23" loading="lazy">
+                <img src="img/propiedad15/24.jpg" alt="Foto 24" loading="lazy">
+                <img src="img/propiedad15/25.jpg" alt="Foto 25" loading="lazy">
+            </div>
+            <span class="precio-tag">Venta: US$ 385,000 (Negociable)</span>
+            <ul style="font-size: 15px; columns: 2;">
+                <li>Área: 213.34 m² (Piso 7)</li>
+                <li>Cocina con mesada de mármol</li>
+                <li>Hab. Principal con hidromasajes</li>
+                <li>3 Hab. secundarias en 2do nivel</li>
+                <li>Ventanas antiruido</li>
+                <li>Pisos de bambú</li>
+                <li>2 Terrmas a gas</li>
+                <li>2 Cocheras lineales + Depósito</li>
+            </ul>
+            <button onclick="location.href='#contacto'" class="btn-visita" style="background: #c0392b;">CITAS - C. VÁSQUEZ</button>
+        </div>
+    </article>
+
+
+    <h2 id="comercial" style="border-bottom: 3px solid #27ae60; padding-bottom: 10px; margin-top: 50px;">🏬 TERRENOS Y LOCALES COMERCIALES</h2>
+
+    <!-- PROPIEDAD 7 -->
+    <article id="propiedad7" class="tarjeta-prop">
+        <div class="tarjeta-header" style="background: #8e44ad;">
+            <h2 style="margin: 0;">Stand Comercial - Galería GAMA</h2>
+            <p style="margin: 5px 0 0 0;">📍 La Victoria, Gamarra - 2do Nivel</p>
+        </div>
+        <div style="padding: 25px;">
+            <div class="galeria-scroll">
+                <img src="img/propiedad7/1.jpg" alt="Foto 1" loading="lazy">
+                <img src="img/propiedad7/2.jpg" alt="Foto 2" loading="lazy">
+                <img src="img/propiedad7/3.jpg" alt="Foto 3" loading="lazy">
+                <img src="img/propiedad7/4.jpg" alt="Foto 4" loading="lazy">
+                <img src="img/propiedad7/5.jpg" alt="Foto 5" loading="lazy">
+                <img src="img/propiedad7/6.jpg" alt="Foto 6" loading="lazy">
+                <img src="img/propiedad7/7.jpg" alt="Foto 7" loading="lazy">
+                <img src="img/propiedad7/8.jpg" alt="Foto 8" loading="lazy">
+                <img src="img/propiedad7/9.jpg" alt="Foto 9" loading="lazy">
+            </div>
+            <span class="precio-tag" style="color:#8e44ad;">Venta: US$ 79,000</span>
+            <ul style="font-size: 15px;">
+                <li><strong>Área:</strong> 7.52 m² con <strong>6 metros de altura</strong> (Ideal para instalar altillo/almacén).</li>
+                <li><strong>Ubicación:</strong> Mall nuevo, ascensor, escaleras eléctricas, seguridad permanente.</li>
+            </ul>
+            <button onclick="location.href='#contacto'" class="btn-visita" style="background: #8e44ad;">CITAS - C. MUÑOZ</button>
+        </div>
+    </article>
+
+    <!-- PROPIEDAD 10 -->
+    <article id="propiedad10" class="tarjeta-prop">
+        <div class="tarjeta-header" style="background: #d9534f;">
+            <h2 style="margin: 0;">Local Comercial Alto Tránsito</h2>
+            <p style="margin: 5px 0 0 0;">📍 Bellavista, Callao - Av. Faucett</p>
+        </div>
+        <div style="padding: 25px;">
+            <div class="galeria-scroll">
+                <img src="img/propiedad10/1.jpg" alt="Foto 1" loading="lazy">
+                <img src="img/propiedad10/2.jpg" alt="Foto 2" loading="lazy">
+                <img src="img/propiedad10/3.jpg" alt="Foto 3" loading="lazy">
+            </div>
+            <span class="precio-tag" style="color:#d9534f;">Alquiler: S/ 6,200 + IGV</span>
+            <ul style="font-size: 15px;">
+                <li><strong>Área:</strong> 131.5 m² + 40 m² de retiro (techable con drywall).</li>
+                <li><strong>Detalles:</strong> Luz trifásica, pozo a tierra. Ideal para atención al público masivo.</li>
+                <li><strong>Condiciones:</strong> 2 de garantía x 1 mes de adelanto.</li>
+            </ul>
+            <button onclick="location.href='#contacto'" class="btn-visita" style="background: #d9534f;">CITAS - C. MUÑOZ</button>
+        </div>
+    </article>
+
+    <!-- PROPIEDAD 12 -->
+    <article id="propiedad12" class="tarjeta-prop">
+        <div class="tarjeta-header" style="background: #f39c12;">
+            <h2 style="margin: 0;">Casa como Terreno (1000 m²)</h2>
+            <p style="margin: 5px 0 0 0;">📍 Puente Piedra - Frente a Panamericana Norte</p>
+        </div>
+        <div style="padding: 25px;">
+            <div class="galeria-scroll">
+                <img src="img/propiedad12/1.jpg" alt="Foto 1" loading="lazy">
+            </div>
+            <span class="precio-tag" style="color:#f39c12;">Venta Ocasión: US$ 450,000 (Negociable)</span>
+            <ul style="font-size: 15px;">
+                <li><strong>Dimensiones:</strong> 20m de frente x 50m de fondo. Área Construida 100m².</li>
+                <li><strong>Ventajas:</strong> Zona de expansión comercial. A 2 cuadras de Hiperbodega Precio Uno.</li>
+                <li>Ideal para proyectos comerciales, recreacionales o colegios.</li>
+            </ul>
+            <button onclick="location.href='#contacto'" class="btn-visita" style="background: #f39c12;">CITAS - P. VÁSQUEZ</button>
+        </div>
+    </article>
+
+    <!-- PROPIEDAD 16 -->
+    <article id="propiedad16" class="tarjeta-prop">
+        <div class="tarjeta-header" style="background: #27ae60;">
+            <h2 style="margin: 0;">Terreno Proyecto Inmobiliario</h2>
+            <p style="margin: 5px 0 0 0;">📍 Surco - Urb. Santa Constanza</p>
+        </div>
+        <div style="padding: 25px;">
+            <div class="galeria-scroll">
+                <img src="img/propiedad16/1.jpg" alt="Foto 1" loading="lazy">
+                <img src="img/propiedad16/2.jpg" alt="Foto 2" loading="lazy">
+                <img src="img/propiedad16/3.jpg" alt="Foto 3" loading="lazy">
+                 <img src="img/propiedad16/4.jpg" alt="Foto 4" loading="lazy">
+                  <img src="img/propiedad16/5.jpg" alt="Foto5" loading="lazy">
+                   <img src="img/propiedad16/6.jpg" alt="Foto6" loading="lazy">
+            </div>
+            <span class="precio-tag" style="color:#27ae60;">Venta: US$ 684,000</span>
+            <ul style="font-size: 15px;">
+                <li><strong>Área:</strong> 380 m² (19m frente x 20m fondo).</li>
+                <li><strong>Ubicación:</strong> Cerca al Jockey Plaza y Av. Javier Prado. Parámetros para 4-5 pisos.</li>
+                <li>*Nota: En caso de proyecto, se acepta un dpto (1er piso o duplex) en parte de pago.</li>
+            </ul>
+            <button onclick="location.href='#contacto'" class="btn-visita" style="background: #27ae60;">CITAS - INFO</button>
+        </div>
+    </article>
+
+   <!-- PROPIEDAD 17 -->
+    <article id="propiedad17" class="tarjeta-prop">
+        <div class="tarjeta-header" style="background: #2c3e50;">
+            <h2 style="margin: 0;">Terreno Comercial Frente a Parque</h2>
+            <p style="margin: 5px 0 0 0;">📍 Surco - Urb. Alborada</p>
+        </div>
+        <div style="padding: 25px;">
+            <div class="galeria-scroll">
+                <img src="img/propiedad17/1.jpg" alt="Foto 1" loading="lazy">
+                <img src="img/propiedad17/2.jpg" alt="Foto 2" loading="lazy">
+                <img src="img/propiedad17/3.jpg" alt="Foto 3" loading="lazy">
+                <img src="img/propiedad17/4.jpg" alt="Foto 4" loading="lazy">
+                <img src="img/propiedad17/5.jpg" alt="Foto 5" loading="lazy">
+                <img src="img/propiedad17/6.jpg" alt="Foto 6" loading="lazy">
+                <img src="img/propiedad17/7.jpg" alt="Foto 7" loading="lazy">
+                <img src="img/propiedad17/8.jpg" alt="Foto 8" loading="lazy">
+                <img src="img/propiedad17/9.jpg" alt="Foto 9" loading="lazy">
+                <img src="img/propiedad17/10.jpg" alt="Foto 10" loading="lazy">
+                <img src="img/propiedad17/11.jpg" alt="Foto 11" loading="lazy">
+            </div>
+            <span class="precio-tag" style="color:#2c3e50;">Venta: US$ 1,400 x m²</span>
+            <ul style="font-size: 15px;">
+                <li><strong>Área:</strong> 931.50 m² | Zonificación OU Otros Usos III C2.</li>
+                <li><strong>Ubicación:</strong> A 3 cdras de Av. Benavides y Caminos del Inca.</li>
+                <li>Actualmente funciona cancha de fulbito, cafetería y baños.</li>
+            </ul>
+            <button onclick="location.href='#contacto'" class="btn-visita" style="background: #2c3e50;">CITAS - P. VÁSQUEZ</button>
+        </div>
+    </article>
+
+    
+<h2 id="otros" style="border-bottom: 3px solid #8a7c76; padding-bottom: 10px; margin-top: 50px;">✨ OTROS PROYECTOS DESTACADOS</h2>
+
+
+    <!-- PROPIEDADES DESTACADAS EXTRA / CONSTRUCTORAS -->
+    
+
+
+
+    <article id="propiedad6" style="border: 1px solid #eadfd4; border-radius: 15px; background: #fff; margin-bottom: 50px; box-shadow: 0 8px 25px rgba(0,0,0,0.1); overflow: hidden;">
+        <div style="position: relative;">
+            <img src="img/propiedad6/fachada.jpg" loading="lazy" style="width: 100%; height: 450px; object-fit: cover;" alt="Proyecto San Miguel">
+            <div class="badge-estreno" style="position:absolute; top:20px; left:20px; font-weight:bold; padding: 10px 15px; border-radius:5px; color:white; background: #c0392b;">ENTREGA: 15 MAYO 2026</div>
+        </div>
+        <div style="padding: 30px;">
+            <h2 style="color: #341b18; margin-top: 0;">Residencial San Miguel - Frente a Parque</h2>
+            <p style="color: #666;">📍 Cerca a Av. La Marina, Plaza San Miguel y Av. Universitaria</p>
+            <div style="background: #fcf6f3; border-left: 5px solid #553026; padding: 15px; margin: 20px 0; font-size: 14px; line-height: 1.6;">
+                <strong>Detalles del Edificio:</strong> 9 pisos, ascensor, 22 departamentos (Flats y Dúplex). <br>
+                <strong>Acabados:</strong> Granito en cocina, cuarzo en baños, pisos cerámicos y madera enchapada. <br>
+                🚲 <strong>Extras:</strong> 20 estacionamientos para bicicletas y 3 para autos disponibles.
+            </div>
+            <h4 style="color: #553026;">📐 Disponibilidad y Precios:</h4>
+            <div class="galeria-scroll">
+                <div style="min-width: 250px; border: 1px solid #eed; padding: 10px; border-radius: 8px; text-align: center; background: #faf8f6;">
+                    <img src="img/propiedad6/plano_85m2.jpg" style="width: 100%; border-radius: 4px;" loading="lazy">
+                    <p style="font-size: 12px; margin: 5px 0;"><strong>Flats 203 al 803</strong><br>85.87 m² | <strong>S/. 605,000</strong></p>
+                </div>
+                <div style="min-width: 250px; border: 1px solid #eed; padding: 10px; border-radius: 8px; text-align: center; background: #faf8f6;">
+                    <img src="img/propiedad6/plano_68m2.jpg" style="width: 100%; border-radius: 4px;" loading="lazy">
+                    <p style="font-size: 12px; margin: 5px 0;"><strong>Flats 301 al 801</strong><br>68.17 m² | <strong>S/. 481,000</strong></p>
+                </div>
+                <div style="min-width: 250px; border: 1px solid #eed; padding: 10px; border-radius: 8px; text-align: center; background: #faf8f6;">
+                    <img src="img/propiedad6/plano_36m2.jpg" style="width: 100%; border-radius: 4px;" loading="lazy">
+                    <p style="font-size: 12px; margin: 5px 0;"><strong>Dpto 101 (Flat)</strong><br>36.57 m² | <strong>S/. 258,000</strong></p>
+                </div>
+
+                <div style="min-width: 250px; border: 1px solid #eed; padding: 10px; border-radius: 8px; text-align: center; background: #faf8f6;">
+                    <img src="img/propiedad6/plano_60m2.jpg" style="width: 100%; border-radius: 4px;" loading="lazy">
+                    <p style="font-size: 12px; margin: 5px 0;"><strong>Dpto 102 (Flat)</strong><br>60.03 m² | <strong>S/. 423,000</strong></p>
+                </div>
+
+                <div style="min-width: 250px; border: 1px solid #eed; padding: 10px; border-radius: 8px; text-align: center; background: #faf8f6;">
+                    <img src="img/propiedad6/plano_86m2.jpg" style="width: 100%; border-radius: 4px;" loading="lazy">
+                    <p style="font-size: 12px; margin: 5px 0;"><strong>Dpto 601 (Flat)</strong><br>86.36 m² | <strong>S/. 608,000</strong></p>
+                </div>
+
+            </div>
+            <h4 style="color: #553026; margin-top: 20px;">📸 Avance de Obra y Acabados</h4>
+            <div class="galeria-scroll">
+                <img src="img/propiedad6/acabados.jpg" alt="Acabados" loading="lazy">
+                <img src="img/propiedad6/caracteristicas_edificio.jpg" alt="caracteristicas_edificio" loading="lazy">
+                <img src="img/propiedad6/avance1.jpg" alt="Avance 1" loading="lazy">
+                <img src="img/propiedad6/avance2.jpg" alt="Avance 2" loading="lazy">
+                <img src="img/propiedad6/avance3.jpg" alt="Avance 3" loading="lazy">
+                 <img src="img/propiedad6/avance4.jpg" alt="Avance 4" loading="lazy">
+            </div>
+            <div style="text-align: center; margin-top: 25px;">
+                <a href="#contacto" style="background: #28a745; color: white; padding: 15px 30px; text-decoration: none; border-radius: 8px; font-weight: bold; display: inline-block; transition:0.3s opacity;">CONSULTAR CON C. G. BENAVIDES</a>
+            </div>
+        </div>
+    </article>
+
+    <div style="border: 1px solid #eadfd4; border-radius: 15px; background: #fff; margin-bottom: 50px; box-shadow: 0 8px 25px rgba(0,0,0,0.1); overflow: hidden; font-family: sans-serif;">
+        <div style="position: relative;">
+            <img src="img/propiedad13/caracteristicas_edificio.jpg" style="width: 100%; height: auto; display: block;" alt="Características Edificio Vista Brasil" loading="lazy">
+            <div style="position: absolute; top: 20px; left: 20px; background: #c0392b; color: white; padding: 10px 20px; border-radius: 5px; font-weight: bold; box-shadow: 2px 2px 10px rgba(0,0,0,0.3);">
+                LISTOS PARA ENTREGA - INDEPENDIZADOS
+            </div>
+        </div>
+        <div style="padding: 30px;">
+            <h2 style="color: #341b18; margin-top: 0; font-size: 26px;">Edificio Multifamiliar "Vista Brasil" - Magdalena</h2>
+            <p style="color: #666; font-size: 15px; margin-bottom: 20px;">📍 Av. Brasil 3784 y Jr. Grau 110 – 134 | 23 Pisos | 4 Ascensores</p>
+            <div style="background: #fcf6f3; border-left: 5px solid #553026; padding: 15px; margin-bottom: 25px; font-size: 14px; line-height: 1.6;">
+                ✅ <strong>Financiamiento:</strong> Se puede financiar con <strong>CUALQUIER BANCO</strong>.<br>
+                ✅ <strong>Variedad:</strong> Áreas desde 57.20 m² hasta 166.50 m².<br>
+                ✅ <strong>Infraestructura:</strong> 2 torres, 5 sótanos, 88 estacionamientos y estructura antisísmica.
+            </div>
+            <h4 style="color: #553026; border-bottom: 2px solid #f2eadc; padding-bottom: 8px;">📊 Lista de Precios y Planos de Distribución</h4>
+            <div style="display: flex; overflow-x: auto; gap: 15px; padding: 15px 0;">
+                <div style="min-width: 300px; text-align: center;">
+                    <img src="img/propiedad13/cuadro_precios.jpg" style="width: 100%; border-radius: 8px; border: 1px solid #ddd; box-shadow: 0 2px 5px rgba(0,0,0,0.1);" loading="lazy">
+                    <p style="font-size: 12px; margin-top: 8px; font-weight: bold;">Relación de 17 Dptos y Cocheras</p>
+                </div>
+                <div style="min-width: 300px; text-align: center;">
+                    <img src="img/propiedad13/planos_tipo1_2.jpg" style="width: 100%; border-radius: 8px; border: 1px solid #ddd;" loading="lazy">
+                    <p style="font-size: 12px; margin-top: 8px;">Planos y Características (Tipo 1 y 2)</p>
+                </div>
+                <div style="min-width: 300px; text-align: center;">
+                    <img src="img/propiedad13/planos_tipo1_3.jpg" style="width: 100%; border-radius: 8px; border: 1px solid #ddd;" loading="lazy">
+                    <p style="font-size: 12px; margin-top: 8px;">Planos y Características (Tipo 1 y 3)</p>
+                </div>
+            </div>
+            <h4 style="color: #553026; margin-top: 25px; border-bottom: 2px solid #f2eadc; padding-bottom: 8px;">📸 Galería de Departamentos Terminados</h4>
+            <div style="display: flex; overflow-x: auto; gap: 10px; padding-bottom: 15px;">
+                <img src="img/propiedad13/foto1.jpg" style="width: 220px; height: 160px; object-fit: cover; border-radius: 8px; flex-shrink: 0;" loading="lazy">
+                <img src="img/propiedad13/foto2.jpg" style="width: 220px; height: 160px; object-fit: cover; border-radius: 8px; flex-shrink: 0;" loading="lazy">
+                <img src="img/propiedad13/foto3.jpg" style="width: 220px; height: 160px; object-fit: cover; border-radius: 8px; flex-shrink: 0;" loading="lazy">
+                <img src="img/propiedad13/foto4.jpg" style="width: 220px; height: 160px; object-fit: cover; border-radius: 8px; flex-shrink: 0;" loading="lazy">
+                <img src="img/propiedad13/foto5.jpg" style="width: 220px; height: 160px; object-fit: cover; border-radius: 8px; flex-shrink: 0;" loading="lazy">
+                <img src="img/propiedad13/foto6.jpg" style="width: 220px; height: 160px; object-fit: cover; border-radius: 8px; flex-shrink: 0;" loading="lazy">
+                <img src="img/propiedad13/foto7.jpg" style="width: 220px; height: 160px; object-fit: cover; border-radius: 8px; flex-shrink: 0;" loading="lazy">
+                <img src="img/propiedad13/foto8.jpg" style="width: 220px; height: 160px; object-fit: cover; border-radius: 8px; flex-shrink: 0;" loading="lazy">
+            </div>
+            <div style="text-align: center; margin-top: 30px; background: #faf8f6; padding: 20px; border-radius: 10px;">
+                <p style="margin-bottom: 15px; font-weight: bold; color: #333;">¿Desea agendar una visita o recibir una cotización?</p>
+                <a href="#contacto" style="display: inline-block; background: #28a745; color: white; padding: 15px 35px; text-decoration: none; border-radius: 8px; font-weight: bold; font-size: 18px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+                    CONSULTAR CITA
+                </a>
+                <p style="font-size: 12px; color: #888; margin-top: 10px;">Atención de lunes a domingo previa cita.</p>
+            </div>
+        </div>
+    </div>
+
+    <div style="border: 1px solid #eadfd4; border-radius: 15px; background: #fff; margin-bottom: 50px; box-shadow: 0 5px 20px rgba(0,0,0,0.1); overflow: hidden; font-family: sans-serif;">
+        <div style="position: relative;">
+            <img src="img/propiedad2/principal.jpg" style="width: 100%; height: 400px; object-fit: cover;" alt="Edificio Magdalena" loading="lazy">
+            <div style="position: absolute; top: 20px; right: 20px; background: #28a745; color: white; padding: 10px 20px; border-radius: 5px; font-weight: bold;">¡EN ESTRENO!</div>
+        </div>
+        <div style="padding: 30px;">
+            <h2 style="color: #341b18; margin-top: 0;">Alquiler de 11 Departamentos en Magdalena</h2>
+            <p style="color: #666; font-size: 15px;">📍 Jr. Echenique esquina con Jr. Junín (Cerca a Av. Sucre y Mercado)</p>
+            <div style="background: #faf8f6; border: 2px solid #553026; border-radius: 10px; padding: 20px; margin: 25px 0; display: flex; flex-wrap: wrap; gap: 20px; align-items: center;">
+                <img src="img/propiedad2/cuadro_informacion.jpg" style="max-width: 280px; border-radius: 5px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);" alt="Cuadro de Precios" loading="lazy">
+                <div style="flex: 1; min-width: 250px;">
+                    <h4 style="margin: 0 0 10px 0; color: #553026;">Condiciones y Servicios:</h4>
+                    <ul style="font-size: 14px; line-height: 1.8; padding-left: 20px;">
+                        <li><strong>Mantenimiento:</strong> S/. 150.00 (Incluye agua, vigilancia y limpieza).</li>
+                        <li><strong>Servicios:</strong> Luz y Arbitrios incluidos en el alquiler.</li>
+                        <li><strong>Garantía:</strong> 1 mes adelantado x 2 de garantía.</li>
+                        <li><strong>Requisitos:</strong> Sustento de ingresos y buen reporte Infocorp.</li>
+                    </ul>
+                </div>
+            </div>
+            <h4 style="border-bottom: 2px solid #eee; padding-bottom: 5px; color: #341b18;">🏢 Áreas Comunes (Sala de reuniones, Terraza BBQ, Lobby)</h4>
+            <div style="display: flex; overflow-x: auto; gap: 10px; padding: 10px 0 20px 0;">
+                <img src="img/propiedad2/hall_ingreso.jpg" style="width: 200px; height: 140px; object-fit: cover; border-radius: 8px; flex-shrink: 0;" loading="lazy">
+                <img src="img/propiedad2/sala_reuniones.jpg" style="width: 200px; height: 140px; object-fit: cover; border-radius: 8px; flex-shrink: 0;" loading="lazy">
+                <img src="img/propiedad2/ascensor.jpg" style="width: 200px; height: 140px; object-fit: cover; border-radius: 8px; flex-shrink: 0;" loading="lazy">
+                <img src="img/propiedad2/escalera_emergencia.jpg" style="width: 200px; height: 140px; object-fit: cover; border-radius: 8px; flex-shrink: 0;" loading="lazy">
+            </div>
+            <h4 style="border-bottom: 2px solid #eee; padding-bottom: 5px; color: #341b18;">📐 Dptos 2 Dormitorios (AC 58.63 m²)</h4>
+            <div style="display: flex; overflow-x: auto; gap: 10px; padding: 10px 0 20px 0;">
+                <img src="img/propiedad2/dpto58_1.jpg" style="width: 200px; height: 140px; object-fit: cover; border-radius: 8px; flex-shrink: 0;" loading="lazy">
+                <img src="img/propiedad2/dpto58_2.jpg" style="width: 200px; height: 140px; object-fit: cover; border-radius: 8px; flex-shrink: 0;" loading="lazy">
+                <img src="img/propiedad2/dpto58_3.jpg" style="width: 200px; height: 140px; object-fit: cover; border-radius: 8px; flex-shrink: 0;" loading="lazy">
+                <img src="img/propiedad2/dpto58_4.jpg" style="width: 200px; height: 140px; object-fit: cover; border-radius: 8px; flex-shrink: 0;" loading="lazy">
+                <img src="img/propiedad2/dpto58_5.jpg" style="width: 200px; height: 140px; object-fit: cover; border-radius: 8px; flex-shrink: 0;" loading="lazy">
+                <img src="img/propiedad2/dpto58_6.jpg" style="width: 200px; height: 140px; object-fit: cover; border-radius: 8px; flex-shrink: 0;" loading="lazy">
+               
+            </div>
+
+            <h4 style="border-bottom: 2px solid #eee; padding-bottom: 5px; color: #341b18;">📐 Dptos 2 Dormitorios (AC 68.30)</h4>
+            <div style="display: flex; overflow-x: auto; gap: 10px; padding: 10px 0 20px 0;">
+                <img src="img/propiedad2/dpto68_1.jpg" style="width: 200px; height: 140px; object-fit: cover; border-radius: 8px; flex-shrink: 0;" loading="lazy">
+                <img src="img/propiedad2/dpto68_2.jpg" style="width: 200px; height: 140px; object-fit: cover; border-radius: 8px; flex-shrink: 0;" loading="lazy">
+                <img src="img/propiedad2/dpto68_3.jpg" style="width: 200px; height: 140px; object-fit: cover; border-radius: 8px; flex-shrink: 0;" loading="lazy">
+                <img src="img/propiedad2/dpto68_4.jpg" style="width: 200px; height: 140px; object-fit: cover; border-radius: 8px; flex-shrink: 0;" loading="lazy">
+                <img src="img/propiedad2/dpto68_5.jpg" style="width: 200px; height: 140px; object-fit: cover; border-radius: 8px; flex-shrink: 0;" loading="lazy">
+                <img src="img/propiedad2/dpto68_6.jpg" style="width: 200px; height: 140px; object-fit: cover; border-radius: 8px; flex-shrink: 0;" loading="lazy">
+               <img src="img/propiedad2/dpto68_7.jpg" style="width: 200px; height: 140px; object-fit: cover; border-radius: 8px; flex-shrink: 0;" loading="lazy">
+               <img src="img/propiedad2/dpto68_8.jpg" style="width: 200px; height: 140px; object-fit: cover; border-radius: 8px; flex-shrink: 0;" loading="lazy">
+               <img src="img/propiedad2/dpto68_9.jpg" style="width: 200px; height: 140px; object-fit: cover; border-radius: 8px; flex-shrink: 0;" loading="lazy">
+               <img src="img/propiedad2/dpto68_10.jpg" style="width: 200px; height: 140px; object-fit: cover; border-radius: 8px; flex-shrink: 0;" loading="lazy">
+            </div>
+
+
+            <h4 style="border-bottom: 2px solid #eee; padding-bottom: 5px; color: #341b18;">📐 Dptos 3 Dormitorios (AC 67.22)</h4>
+            <div style="display: flex; overflow-x: auto; gap: 10px; padding: 10px 0 20px 0;">
+                <img src="img/propiedad2/dpto67_1.jpg" style="width: 200px; height: 140px; object-fit: cover; border-radius: 8px; flex-shrink: 0;" loading="lazy">
+                <img src="img/propiedad2/dpto67_2.jpg" style="width: 200px; height: 140px; object-fit: cover; border-radius: 8px; flex-shrink: 0;" loading="lazy">
+                <img src="img/propiedad2/dpto67_3.jpg" style="width: 200px; height: 140px; object-fit: cover; border-radius: 8px; flex-shrink: 0;" loading="lazy">
+                <img src="img/propiedad2/dpto67_4.jpg" style="width: 200px; height: 140px; object-fit: cover; border-radius: 8px; flex-shrink: 0;" loading="lazy">
+                <img src="img/propiedad2/dpto67_5.jpg" style="width: 200px; height: 140px; object-fit: cover; border-radius: 8px; flex-shrink: 0;" loading="lazy">
+                <img src="img/propiedad2/dpto67_6.jpg" style="width: 200px; height: 140px; object-fit: cover; border-radius: 8px; flex-shrink: 0;" loading="lazy">
+               <img src="img/propiedad2/dpto67_7.jpg" style="width: 200px; height: 140px; object-fit: cover; border-radius: 8px; flex-shrink: 0;" loading="lazy">
+
+               </div>
+               
+
+            <a href="#contacto" style="display: block; background: #553026; color: white; text-align: center; padding: 20px; text-decoration: none; border-radius: 8px; font-weight: bold; margin-top: 20px; font-size: 18px;">
+                AGENDE SU VISITA 
+            </a>
+        </div>
+    </div>
+
+    <div style="border: 1px solid #eadfd4; border-radius: 15px; background: #fff; margin-bottom: 50px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); overflow: hidden; font-family: sans-serif;">
+        <div style="background: #341b18; color: white; padding: 25px; text-align: center;">
+            <h2 style="margin: 0;">Mini-Departamentos Exclusivos en La Molina</h2>
+            <p style="margin: 10px 0 0 0; font-size: 14px;">📍 Calle La Riviera, Sol de La Molina | Servicios Incluidos</p>
+        </div>
+        <div style="padding: 25px;">
+            <h4 style="color: #553026; margin-bottom: 10px; border-bottom: 2px solid #eee;">🌳 Áreas Comunes (Piscina, Jardín y Seguridad)</h4>
+            <div style="display: flex; overflow-x: auto; gap: 10px; padding-bottom: 15px; scroll-snap-type: x mandatory;">
+                <img src="img/propiedad3/piscina.jpg" style="width: 280px; height: 180px; object-fit: cover; border-radius: 8px; flex-shrink: 0; border: 1px solid #ddd;" loading="lazy">
+                <img src="img/propiedad3/jardin1.jpg" style="width: 280px; height: 180px; object-fit: cover; border-radius: 8px; flex-shrink: 0; border: 1px solid #ddd;" loading="lazy">
+
+                 <img src="img/propiedad3/jardin2.jpg" style="width: 280px; height: 180px; object-fit: cover; border-radius: 8px; flex-shrink: 0; border: 1px solid #ddd;" loading="lazy">
+                  <img src="img/propiedad3/jardin3.jpg" style="width: 280px; height: 180px; object-fit: cover; border-radius: 8px; flex-shrink: 0; border: 1px solid #ddd;" loading="lazy">
+
+                <img src="img/propiedad3/seguridad1.jpg" style="width: 280px; height: 180px; object-fit: cover; border-radius: 8px; flex-shrink: 0; border: 1px solid #ddd;" loading="lazy">
+
+                 <img src="img/propiedad3/seguridad2.jpg" style="width: 280px; height: 180px; object-fit: cover; border-radius: 8px; flex-shrink: 0; border: 1px solid #ddd;" loading="lazy">
+            </div>
+            <p style="background: #fff3cd; padding: 12px; border-radius: 5px; font-size: 13px; color: #856404; margin-bottom: 25px;">
+                <strong>Nota Importante:</strong> El alquiler incluye Agua, Luz y Mantenimiento. 🚫 No se aceptan mascotas.
+            </p>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
+                <div style="border: 1px solid #eee; padding: 15px; border-radius: 10px;">
+                    <h4 style="margin-top: 0; color:#341b18;">Dpto C - 40 m² (2do Piso)</h4>
+                    <p style="font-weight: bold; color: #28a745;">S/ 1,850.00</p>
+                    <p style="font-size: 12px; color: #666;">Para persona sola o señorita.</p>
+                    <div style="display: flex; overflow-x: auto; gap: 5px; margin-top: 10px;">
+                        <img src="img/propiedad3/c1.jpg" style="width: 120px; height: 80px; object-fit: cover; border-radius: 4px; flex-shrink: 0;" loading="lazy">
+                        <img src="img/propiedad3/c2.jpg" style="width: 120px; height: 80px; object-fit: cover; border-radius: 4px; flex-shrink: 0;" loading="lazy">
+
+                        <img src="img/propiedad3/c3.jpg" style="width: 120px; height: 80px; object-fit: cover; border-radius: 4px; flex-shrink: 0;" loading="lazy">
+
+                        <img src="img/propiedad3/c4.jpg" style="width: 120px; height: 80px; object-fit: cover; border-radius: 4px; flex-shrink: 0;" loading="lazy">
+                        <img src="img/propiedad3/c5.jpg" style="width: 120px; height: 80px; object-fit: cover; border-radius: 4px; flex-shrink: 0;" loading="lazy">
+                        <img src="img/propiedad3/c6.jpg" style="width: 120px; height: 80px; object-fit: cover; border-radius: 4px; flex-shrink: 0;" loading="lazy">
+                        <img src="img/propiedad3/c7.jpg" style="width: 120px; height: 80px; object-fit: cover; border-radius: 4px; flex-shrink: 0;" loading="lazy">
+                        <img src="img/propiedad3/c8.jpg" style="width: 120px; height: 80px; object-fit: cover; border-radius: 4px; flex-shrink: 0;" loading="lazy">
+
+
+
+                    </div>
+                </div>
+                <div style="border: 1px solid #eee; padding: 15px; border-radius: 10px;">
+                    <h4 style="margin-top: 0; color:#341b18;">Dpto D - 50 m² (2do Piso)</h4>
+                    <p style="font-weight: bold; color: #28a745;">S/ 2,500.00</p>
+                    <p style="font-size: 12px; color: #666;">Incluye Cochera y Refri. Apto parejas.</p>
+                    <div style="display: flex; overflow-x: auto; gap: 5px; margin-top: 10px;">
+                        <img src="img/propiedad3/d1.jpg" style="width: 120px; height: 80px; object-fit: cover; border-radius: 4px; flex-shrink: 0;" loading="lazy">
+                         <img src="img/propiedad3/d2.jpg" style="width: 120px; height: 80px; object-fit: cover; border-radius: 4px; flex-shrink: 0;" loading="lazy">
+                          <img src="img/propiedad3/d3.jpg" style="width: 120px; height: 80px; object-fit: cover; border-radius: 4px; flex-shrink: 0;" loading="lazy">
+                           <img src="img/propiedad3/d4.jpg" style="width: 120px; height: 80px; object-fit: cover; border-radius: 4px; flex-shrink: 0;" loading="lazy">
+                            <img src="img/propiedad3/d5.jpg" style="width: 120px; height: 80px; object-fit: cover; border-radius: 4px; flex-shrink: 0;" loading="lazy">
+                             <img src="img/propiedad3/d6.jpg" style="width: 120px; height: 80px; object-fit: cover; border-radius: 4px; flex-shrink: 0;" loading="lazy">
+                              <img src="img/propiedad3/d7.jpg" style="width: 120px; height: 80px; object-fit: cover; border-radius: 4px; flex-shrink: 0;" loading="lazy">
+                    </div>
+                </div>
+                <div style="border: 1px solid #eee; padding: 15px; border-radius: 10px;">
+                    <h4 style="margin-top: 0; color:#341b18;">Dpto E - 50 m² (1er Piso)</h4>
+                    <p style="font-weight: bold; color: #28a745;">S/ 2,500.00</p>
+                    <p style="font-size: 12px; color: #666;">Primer piso con Cochera. Apto parejas.</p>
+                    <div style="display: flex; overflow-x: auto; gap: 5px; margin-top: 10px;">
+                        <img src="img/propiedad3/e1.jpg" style="width: 120px; height: 80px; object-fit: cover; border-radius: 4px; flex-shrink: 0;" loading="lazy">
+
+                         <img src="img/propiedad3/e2.jpg" style="width: 120px; height: 80px; object-fit: cover; border-radius: 4px; flex-shrink: 0;" loading="lazy">
+                          <img src="img/propiedad3/e3.jpg" style="width: 120px; height: 80px; object-fit: cover; border-radius: 4px; flex-shrink: 0;" loading="lazy">
+                           <img src="img/propiedad3/e4.jpg" style="width: 120px; height: 80px; object-fit: cover; border-radius: 4px; flex-shrink: 0;" loading="lazy">
+
+
+
+
+                    </div>
+                </div>
+                <div style="border: 1px solid #eee; padding: 15px; border-radius: 10px;">
+                    <h4 style="margin-top: 0; color:#341b18;">Dpto F - 35 m² (1er Piso)</h4>
+                    <p style="font-weight: bold; color: #28a745;">S/ 1,850.00</p>
+                    <p style="font-size: 12px; color: #666;">Para persona sola o señorita.</p>
+                    <div style="display: flex; overflow-x: auto; gap: 5px; margin-top: 10px;">
+                        <img src="img/propiedad3/f1.jpg" style="width: 120px; height: 80px; object-fit: cover; border-radius: 4px; flex-shrink: 0;" loading="lazy">
+
+                        <img src="img/propiedad3/f2.jpg" style="width: 120px; height: 80px; object-fit: cover; border-radius: 4px; flex-shrink: 0;" loading="lazy">
+                        <img src="img/propiedad3/f3.jpg" style="width: 120px; height: 80px; object-fit: cover; border-radius: 4px; flex-shrink: 0;" loading="lazy">
+                        <img src="img/propiedad3/f4.jpg" style="width: 120px; height: 80px; object-fit: cover; border-radius: 4px; flex-shrink: 0;" loading="lazy">
+                        <img src="img/propiedad3/f5.jpg" style="width: 120px; height: 80px; object-fit: cover; border-radius: 4px; flex-shrink: 0;" loading="lazy">
+
+
+                    </div>
+                </div>
+            </div>
+            <div style="margin-top: 30px; text-align: center; border-top: 1px solid #eee; padding-top: 20px;">
+                <p><strong>Condiciones:</strong> 1 Mes de Adelanto x 1 Mes de Garantía</p>
+                <button onclick="location.href='#contacto'" style="background: #28a745; color: white; padding: 15px 30px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 16px; width: 100%;">
+                    SOLICITAR VISITA 
+                </button>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- FORMULARIO DE CONTACTO -->
+    <section class="muro-seguridad" id="contacto">
+        <h2 style="margin-top: 0; color: #d9534f;">🛡️ Validación de Identidad Requerida</h2>
+        <p>Para proteger la privacidad de nuestros propietarios, la dirección exacta y visitas se brindan previa validación de datos.</p>
+        
+        <form action="https://formspree.io/f/mgopprgo" method="POST">
+            <input type="text" name="Nombre" placeholder="Nombre y Apellidos Completos" required>
+            <input type="text" name="Documento" placeholder="DNI o Carnet de Extranjería" required>
+            <input type="tel" name="WhatsApp" placeholder="WhatsApp: 999-999-999" required>
+            <select name="Propiedad_Elegida" style="margin-bottom:15px;">
+                <option disabled selected>¿En qué propiedad está interesado?</option>
+                <option value="Prop 1">Dpto Pueblo Libre</option>
+                <option value="Prop 4">Casa 5 Pisos Los Olivos</option>
+                <option value="Prop 5">Casa 3 Pisos Surco</option>
+                <option value="Prop 7">Local Gamarra</option>
+                <option value="Prop 8">Dpto Callao S/2300</option>
+                <option value="Prop 9">Duplex San Borja</option>
+                <option value="Prop 10">Local Av Faucett</option>
+                <option value="Prop 11">Dpto Callao S/1700</option>
+                <option value="Prop 12">Terreno Puente Piedra</option>
+                <option value="Prop 14">Dpto Surco Valle Hermoso</option>
+                <option value="Prop 15">Duplex Miraflores</option>
+                <option value="Prop 16">Terreno Surco Jockey Plaza</option>
+                <option value="Prop 17">Terreno Surco Alborada</option>
+                <optgroup label="⭐ Destacados Especiales">
+                    <option value="Prop 6,13,2,3">OTROS: Dptos. Magdalena, San Miguel o Molina</option>
+                </optgroup>
+            </select>
+            <button type="submit" style="background: #d9534f; margin-top: 10px; color: white; border: none; padding: 15px; width: 100%; border-radius: 5px; font-weight:bold; cursor:pointer;">ENVIAR SOLICITUD DE VISITA</button>
+        </form>
+    </section>
+
+    <!-- STAFF -->
+    <section style="margin-top: 50px;">
+        <h2 style="text-align: center; color: #341b18;">Nuestro Staff Profesional</h2>
+        <div class="equipo-grid">
+            <div class="card">
+                <h4 style="margin: 0; color: #341b18;">Carolina Muñoz</h4>
+                <p style="margin: 5px 0; color: #666; font-size: 14px;">Gerente General</p>
+                <p style="margin: 0; font-size: 12px; font-weight: bold; color: #553026;">Reg. PN-0374 MVCS</p>
+            </div>
+            <div class="card">
+                <h4 style="margin: 0; color: #341b18;">Juan Andrés Burneo</h4>
+                <p style="margin: 5px 0; color: #666; font-size: 14px;">Asesor Senior / Inmobiliario</p>
+            </div>
+            <div class="card">
+                <h4 style="margin: 0; color: #341b18;">Rosario Roca</h4>
+                <p style="margin: 5px 0; color: #666; font-size: 14px;">Asesora Comercial</p>
+            </div>
+            <div class="card">
+                <h4 style="margin: 0; color: #341b18;">Patricia Vasquez</h4>
+                <p style="margin: 5px 0; color: #666; font-size: 14px;">Asesora Comercial</p>
+            </div>
+        </div>
+        <p style="text-align: center; margin-top: 25px; font-size: 14px; color: #555;">
+            ⚖️ <strong>Respaldo Legal, Tributario y Contable:</strong> Dr. Salvador Morin, Dr. Edgardo León y Sr. Miguel Orellana.<br>
+            🤝 Contamos además con una sólida red de Agentes Inmobiliarios Externos Asociados a nivel nacional.
+        </p>
+    </section>
+
+</div>
+<!-- CONTENEDOR DE LA GALERÍA EMERGENTE -->
+<div id="lightbox-modal">
+    <span class="lightbox-close" onclick="cerrarGaleria()">&times;</span>
+    <span class="lightbox-prev" onclick="cambiarFoto(-1)">&#10094;</span>
+    <img id="lightbox-img" src="" alt="Vista ampliada">
+    <span class="lightbox-next" onclick="cambiarFoto(1)">&#10095;</span>
+</div>
+<footer>
+    <div style="max-width: 1000px; margin: auto;">
+        <h3 style="margin: 0; font-size: 24px;">Ccasa Inmobiliaria</h3>
+        
+        <!-- REDES SOCIALES -->
+        <div style="margin-top: 20px; display: flex; justify-content: center; flex-wrap: wrap; gap: 20px;">
+            <a href="https://facebook.com/ccasainmobiliaria" target="_blank" style="color: #ecdcd4; text-decoration: none; font-weight: bold;">📘 Facebook</a>
+            <a href="https://www.instagram.com/ccasainmobiliaria" target="_blank" style="color: #ecdcd4; text-decoration: none; font-weight: bold;">📸 Instagram</a>
+            <a href="https://www.tiktok.com/@ccasa.inmb" target="_blank" style="color: #ecdcd4; text-decoration: none; font-weight: bold;">🎵 TikTok</a>
+            <a href="mailto:ccasainmobiliaracm@gmail.com" style="color: #ecdcd4; text-decoration: none; font-weight: bold;">✉️ Correo</a>
+        </div>
+
+        <p style="font-size: 0.8em; color: #8a7c76; margin-top: 30px;">
+            © 2026 Todos los derechos reservados. Cumplimos con la Ley N° 29733 de Protección de Datos Personales en Perú.<br>
+            <span style="display: block; margin-top: 10px; color: #ecdcd4;">Diseñado y desarrollado por <a href="https://mabupages.github.io/" style="color: #fff; text-decoration: none; font-weight: bold;">Mabu Pages</a></span>
+        </p>
+    </div>
+</footer>
+
+<script>
+// --- LÓGICA DE LA GALERÍA EMERGENTE ---
+let grupoFotosActual = [];
+let indiceFotoActual = 0;
+
+document.addEventListener('DOMContentLoaded', () => {
+    // En lugar de buscar solo '.galeria-scroll', agrupamos por cada bloque de propiedad.
+    // Esto detecta las tarjetas normales y también los "Otros Proyectos Destacados"
+    const propiedades = document.querySelectorAll('.tarjeta-prop, #propiedad6, h2#otros ~ div[style*="border-radius: 15px"]');
+    
+    propiedades.forEach(propiedad => {
+        // Obtenemos TODAS las imágenes dentro de esta propiedad (portadas, planos, galerías)
+        const fotos = Array.from(propiedad.querySelectorAll('img'));
+        
+        fotos.forEach((foto, index) => {
+            // Añadimos por JS el cursor y efecto hover para que la gente sepa que se pueden clickear
+            foto.style.cursor = 'pointer';
+            foto.style.transition = 'transform 0.2s';
+            foto.addEventListener('mouseenter', () => foto.style.transform = 'scale(1.03)');
+            foto.addEventListener('mouseleave', () => foto.style.transform = 'scale(1)');
+
+            foto.addEventListener('click', () => {
+                abrirGaleria(fotos, index);
+            });
+        });
+    });
+
+    // Cerrar si se hace clic fuera de la imagen (en el fondo negro)
+    document.getElementById('lightbox-modal').addEventListener('click', function(e) {
+        if (e.target === this) cerrarGaleria();
+    });
+});
+
+function abrirGaleria(grupoFotos, index) {
+    grupoFotosActual = grupoFotos;
+    indiceFotoActual = index;
+    document.getElementById('lightbox-modal').style.display = 'flex';
+    actualizarFoto();
+}
+
+function cerrarGaleria() {
+    document.getElementById('lightbox-modal').style.display = 'none';
+}
+
+function cambiarFoto(direccion) {
+    indiceFotoActual += direccion;
+    
+    // Hacer que la galería sea infinita (vuelve al inicio o al final)
+    if (indiceFotoActual >= grupoFotosActual.length) {
+        indiceFotoActual = 0;
+    } else if (indiceFotoActual < 0) {
+        indiceFotoActual = grupoFotosActual.length - 1;
+    }
+    
+    actualizarFoto();
+}
+
+function actualizarFoto() {
+    const srcFoto = grupoFotosActual[indiceFotoActual].src;
+    document.getElementById('lightbox-img').src = srcFoto;
+}
+
+// --- LÓGICA DEL BUSCADOR EN TIEMPO REAL ---
+document.addEventListener('DOMContentLoaded', () => {
+    const inputBuscador = document.getElementById('inputBuscador');
+    const mensajeSinResultados = document.getElementById('mensajeSinResultados');
+    
+    // Seleccionamos todas las propiedades (las normales y los proyectos especiales)
+    const propiedades = document.querySelectorAll('.tarjeta-prop, #propiedad6, h2#otros ~ div[style*="border-radius: 15px"]');
+
+    inputBuscador.addEventListener('keyup', function() {
+        let textoBusqueda = this.value.toLowerCase().trim();
+        let propiedadesVisibles = 0;
+
+        propiedades.forEach(propiedad => {
+            // Obtenemos todo el texto dentro de la propiedad
+            let contenidoPropiedad = propiedad.innerText.toLowerCase();
+
+            // Comprobamos si el texto escrito está dentro del contenido
+            if (contenidoPropiedad.includes(textoBusqueda)) {
+                propiedad.style.display = ''; // Muestra la propiedad
+                propiedadesVisibles++;
+            } else {
+                propiedad.style.display = 'none'; // Oculta la propiedad
+            }
+        });
+
+        // Mostrar u ocultar mensaje de "No hay resultados"
+        if (propiedadesVisibles === 0 && textoBusqueda !== '') {
+            mensajeSinResultados.style.display = 'block';
+        } else {
+            mensajeSinResultados.style.display = 'none';
+        }
+    });
+});
+</script>
+
+</body>
+</html>

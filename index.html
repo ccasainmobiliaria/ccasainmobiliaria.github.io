@@ -171,15 +171,49 @@
 <div class="container">
 
 
-    <!-- BUSCADOR (Lo primero que verán) -->
+    <!-- NUEVO BUSCADOR AVANZADO -->
     <div class="buscador-container" style="margin-top: 20px;">
-        <input type="text" id="inputBuscador" class="buscador-input" placeholder="🔍 Buscar por distrito, tipo (Dpto, Local, Terreno) o precio...">
-        <div id="mensajeSinResultados" class="mensaje-no-resultados">
-            No se encontraron propiedades que coincidan con tu búsqueda.
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 10px; margin-bottom: 15px;">
+            <!-- Filtro Tipo -->
+            <select id="filtroTipo" class="buscador-input" style="padding: 12px; border-radius: 12px; cursor: pointer;">
+                <option value="">🏠 Tipo de Propiedad (Todos)</option>
+                <option value="dpto">Departamento / Dúplex</option>
+                <option value="casa">Casa</option>
+                <option value="terreno">Terreno</option>
+                <option value="local">Local Comercial / Stand</option>
+            </select>
+            
+            <!-- Filtro Distrito -->
+            <select id="filtroDistrito" class="buscador-input" style="padding: 12px; border-radius: 12px; cursor: pointer;">
+                <option value="">📍 Distrito (Todos)</option>
+                <option value="callao">Callao / Bellavista</option>
+                <option value="la molina">La Molina</option>
+                <option value="la victoria">La Victoria (Gamarra)</option>
+                <option value="los olivos">Los Olivos</option>
+                <option value="magdalena">Magdalena</option>
+                <option value="miraflores">Miraflores</option>
+                <option value="pueblo libre">Pueblo Libre</option>
+                <option value="puente piedra">Puente Piedra</option>
+                <option value="san borja">San Borja</option>
+                <option value="san miguel">San Miguel</option>
+                <option value="surco">Surco</option>
+            </select>
+
+            <!-- Filtro Moneda -->
+            <select id="filtroMoneda" class="buscador-input" style="padding: 12px; border-radius: 12px; cursor: pointer;">
+                <option value="">💲 Moneda (Ambas)</option>
+                <option value="S/">Soles (S/)</option>
+                <option value="US$">Dólares (US$)</option>
+            </select>
+            
+            <!-- Filtro Precio Máximo -->
+            <input type="number" id="filtroPrecioMax" class="buscador-input" style="padding: 12px; border-radius: 12px;" placeholder="💸 Presupuesto Máximo">
+        </div>
+
+        <div id="mensajeSinResultados" class="mensaje-no-resultados" style="display:none; text-align:center;">
+            No se encontraron propiedades con esos filtros. Intente ampliar la búsqueda.
         </div>
     </div>
-
-    
     
 
  
@@ -979,33 +1013,6 @@
         </form>
     </section>
 
-    <!-- STAFF -->
-    <section style="margin-top: 50px;">
-        <h2 style="text-align: center; color: #341b18;">Nuestro Staff Profesional</h2>
-        <div class="equipo-grid">
-            <div class="card">
-                <h4 style="margin: 0; color: #341b18;">Carolina Muñoz</h4>
-                <p style="margin: 5px 0; color: #666; font-size: 14px;">Gerente General</p>
-                <p style="margin: 0; font-size: 12px; font-weight: bold; color: #553026;">Reg. PN-0374 MVCS</p>
-            </div>
-            <div class="card">
-                <h4 style="margin: 0; color: #341b18;">Juan Andrés Burneo</h4>
-                <p style="margin: 5px 0; color: #666; font-size: 14px;">Asesor Senior / Inmobiliario</p>
-            </div>
-            <div class="card">
-                <h4 style="margin: 0; color: #341b18;">Rosario Roca</h4>
-                <p style="margin: 5px 0; color: #666; font-size: 14px;">Asesora Comercial</p>
-            </div>
-            <div class="card">
-                <h4 style="margin: 0; color: #341b18;">Patricia Vasquez</h4>
-                <p style="margin: 5px 0; color: #666; font-size: 14px;">Asesora Comercial</p>
-            </div>
-        </div>
-        <p style="text-align: center; margin-top: 25px; font-size: 14px; color: #555;">
-            ⚖️ <strong>Respaldo Legal, Tributario y Contable:</strong> Dr. Salvador Morin, Dr. Edgardo León y Sr. Miguel Orellana.<br>
-            🤝 Contamos además con una sólida red de Agentes Inmobiliarios Externos Asociados a nivel nacional.
-        </p>
-    </section>
 
 </div>
 <!-- CONTENEDOR DE LA GALERÍA EMERGENTE -->
@@ -1095,39 +1102,98 @@ function actualizarFoto() {
     document.getElementById('lightbox-img').src = srcFoto;
 }
 
-// --- LÓGICA DEL BUSCADOR EN TIEMPO REAL ---
+
+
+// --- LÓGICA DEL BUSCADOR AVANZADO ---
 document.addEventListener('DOMContentLoaded', () => {
-    const inputBuscador = document.getElementById('inputBuscador');
+    const filtroTipo = document.getElementById('filtroTipo');
+    const filtroDistrito = document.getElementById('filtroDistrito');
+    const filtroMoneda = document.getElementById('filtroMoneda');
+    const filtroPrecioMax = document.getElementById('filtroPrecioMax');
     const mensajeSinResultados = document.getElementById('mensajeSinResultados');
     
-    // Seleccionamos todas las propiedades (las normales y los proyectos especiales)
     const propiedades = document.querySelectorAll('.tarjeta-prop, #propiedad6, h2#otros ~ div[style*="border-radius: 15px"]');
 
-    inputBuscador.addEventListener('keyup', function() {
-        let textoBusqueda = this.value.toLowerCase().trim();
+    function aplicarFiltros() {
+        let valTipo = filtroTipo.value.toLowerCase();
+        let valDistrito = filtroDistrito.value.toLowerCase();
+        let valMoneda = filtroMoneda.value;
+        let valPrecioMax = parseFloat(filtroPrecioMax.value);
+        let validPrecioMax = !isNaN(valPrecioMax) && valPrecioMax > 0;
+
         let propiedadesVisibles = 0;
 
         propiedades.forEach(propiedad => {
-            // Obtenemos todo el texto dentro de la propiedad
-            let contenidoPropiedad = propiedad.innerText.toLowerCase();
+            let texto = propiedad.innerText.toLowerCase();
+            let textOriginal = propiedad.innerText;
+            
+            // 1. Validar Tipo
+            let matchTipo = true;
+            if (valTipo !== "") {
+                if (valTipo === "dpto" && !(texto.includes("dpto") || texto.includes("departamento") || texto.includes("duplex"))) matchTipo = false;
+                else if (valTipo === "casa" && !(texto.includes("casa"))) matchTipo = false;
+                else if (valTipo === "terreno" && !(texto.includes("terreno"))) matchTipo = false;
+                else if (valTipo === "local" && !(texto.includes("local") || texto.includes("stand"))) matchTipo = false;
+            }
 
-            // Comprobamos si el texto escrito está dentro del contenido
-            if (contenidoPropiedad.includes(textoBusqueda)) {
-                propiedad.style.display = ''; // Muestra la propiedad
+            // 2. Validar Distrito
+            let matchDistrito = true;
+            if (valDistrito !== "" && !texto.includes(valDistrito)) {
+                matchDistrito = false;
+            }
+
+            // 3. Validar Moneda y Precio
+            let matchPrecio = true;
+            if (valMoneda !== "" || validPrecioMax) {
+                let priceRegex = /(S\/|US\$)\s*([\d,]+(?:\.\d+)?)/g;
+                let pricesFound = [];
+                let match;
+                while ((match = priceRegex.exec(textOriginal)) !== null) {
+                    let currency = match[1];
+                    let amount = parseFloat(match[2].replace(/,/g, ''));
+                    pricesFound.push({ currency, amount });
+                }
+
+                if (pricesFound.length > 0) {
+                    if (valMoneda !== "") {
+                        pricesFound = pricesFound.filter(p => p.currency === valMoneda);
+                    }
+                    if (pricesFound.length === 0) {
+                        matchPrecio = false; 
+                    } else if (validPrecioMax) {
+                        let underLimit = pricesFound.some(p => p.amount <= valPrecioMax);
+                        if (!underLimit) matchPrecio = false;
+                    }
+                } else {
+                    matchPrecio = false;
+                }
+            }
+
+            // Visualizar
+            if (matchTipo && matchDistrito && matchPrecio) {
+                propiedad.style.display = '';
                 propiedadesVisibles++;
             } else {
-                propiedad.style.display = 'none'; // Oculta la propiedad
+                propiedad.style.display = 'none';
             }
         });
 
-        // Mostrar u ocultar mensaje de "No hay resultados"
-        if (propiedadesVisibles === 0 && textoBusqueda !== '') {
+        if (propiedadesVisibles === 0) {
             mensajeSinResultados.style.display = 'block';
         } else {
             mensajeSinResultados.style.display = 'none';
         }
-    });
+    }
+
+    // Ejecutar filtro automáticamente cuando cambian los valores
+    filtroTipo.addEventListener('change', aplicarFiltros);
+    filtroDistrito.addEventListener('change', aplicarFiltros);
+    filtroMoneda.addEventListener('change', aplicarFiltros);
+    filtroPrecioMax.addEventListener('input', aplicarFiltros);
 });
+
+
+
 </script>
 
 </body>

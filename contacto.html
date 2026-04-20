@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prueba Firebase - Ccasa Inmobiliaria</title>
+    <style>
+        body { font-family: sans-serif; padding: 20px; max-width: 400px; margin: auto; }
+        input, button { width: 100%; padding: 10px; margin-bottom: 10px; box-sizing: border-box; }
+        button { background-color: #28a745; color: white; border: none; cursor: pointer; }
+        #mensajeExito { color: green; display: none; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+    <h2>Formulario de Contacto (Va a Firebase)</h2>
+    
+    <input type="text" id="nombre" placeholder="Tu Nombre">
+    <input type="text" id="telefono" placeholder="Tu WhatsApp">
+    <input type="text" id="propiedad" placeholder="Propiedad de interés">
+    
+    <button id="btnGuardar">Guardar en Base de Datos</button>
+    
+    <p id="mensajeExito">¡Datos guardados exitosamente!</p>
+
+    <!-- SCRIPT DE FIREBASE -->
+    <script type="module">
+        // 1. Importar las funciones de Firebase desde los servidores de Google (CDN)
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+        import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
+
+        // 2. PEGA TU CONFIGURACIÓN AQUÍ (Reemplaza estos datos falsos por los tuyos)
+    
+             import { initializeApp } from "firebase/app";
+        // TODO: Add SDKs for Firebase products that you want to use
+             const firebaseConfig = {
+  apiKey: "AIzaSyBPu9wKh7WkT7fBrj8aJd3Pd5gZXO-0-IQ",
+  authDomain: "ccasa-inmobiliaria-app.firebaseapp.com",
+  projectId: "ccasa-inmobiliaria-app",
+  storageBucket: "ccasa-inmobiliaria-app.firebasestorage.app",
+  messagingSenderId: "492367333280",
+  appId: "1:492367333280:web:7a80ccb7a0898f0c1f46c5"
+};
+
+
+        // 3. Inicializar Firebase y la Base de Datos
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        // 4. Lógica para guardar cuando se hace clic en el botón
+        document.getElementById('btnGuardar').addEventListener('click', async () => {
+            
+            // Obtener los valores de los inputs
+            const valorNombre = document.getElementById('nombre').value;
+            const valorTelefono = document.getElementById('telefono').value;
+            const valorPropiedad = document.getElementById('propiedad').value;
+
+            // Validación simple
+            if(valorNombre === "" || valorTelefono === "") {
+                alert("Por favor llena nombre y teléfono");
+                return;
+            }
+
+            try {
+                // Guardar en la colección "Contactos" en Firestore
+                const docRef = await addDoc(collection(db, "Contactos"), {
+                    nombre: valorNombre,
+                    telefono: valorTelefono,
+                    propiedad: valorPropiedad,
+                    fecha: new Date() // Guarda la fecha y hora exacta
+                });
+                
+                console.log("Documento guardado con ID: ", docRef.id);
+                
+                // Mostrar mensaje de éxito y limpiar formulario
+                document.getElementById('mensajeExito').style.display = 'block';
+                document.getElementById('nombre').value = '';
+                document.getElementById('telefono').value = '';
+                document.getElementById('propiedad').value = '';
+
+                // Ocultar mensaje después de 3 segundos
+                setTimeout(() => {
+                    document.getElementById('mensajeExito').style.display = 'none';
+                }, 3000);
+
+            } catch (e) {
+                console.error("Error al añadir el documento: ", e);
+                alert("Hubo un error al guardar los datos.");
+            }
+        });
+    </script>
+</body>
+</html>

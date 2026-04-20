@@ -26,14 +26,18 @@
     <!-- SCRIPT DE FIREBASE -->
     <script type="module">
         // 1. Importar las funciones de Firebase desde los servidores de Google (CDN)
+
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
         import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
 
         // 2. PEGA TU CONFIGURACIÓN AQUÍ (Reemplaza estos datos falsos por los tuyos)
     
-             import { initializeApp } from "firebase/app";
-        // TODO: Add SDKs for Firebase products that you want to use
-             const firebaseConfig = {
+ 
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+const firebaseConfig = {
   apiKey: "AIzaSyBPu9wKh7WkT7fBrj8aJd3Pd5gZXO-0-IQ",
   authDomain: "ccasa-inmobiliaria-app.firebaseapp.com",
   projectId: "ccasa-inmobiliaria-app",
@@ -42,9 +46,10 @@
   appId: "1:492367333280:web:7a80ccb7a0898f0c1f46c5"
 };
 
-
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
         // 3. Inicializar Firebase y la Base de Datos
-        const app = initializeApp(firebaseConfig);
+       
         const db = getFirestore(app);
 
         // 4. Lógica para guardar cuando se hace clic en el botón

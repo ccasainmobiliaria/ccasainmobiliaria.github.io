@@ -245,16 +245,23 @@
 <div class="container">
 
 
-    <!-- NUEVO BUSCADOR AVANZADO -->
+   <!-- NUEVO BUSCADOR AVANZADO -->
     <div class="buscador-container" style="margin-top: 20px;">
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 10px; margin-bottom: 15px;">
             <!-- Filtro Tipo -->
             <select id="filtroTipo" class="buscador-input" style="padding: 12px; border-radius: 12px; cursor: pointer;">
-                <option value="">🏠 Tipo de Propiedad (Todos)</option>
+                <option value="">🏠 Tipo (Todos)</option>
                 <option value="dpto">Departamento / Dúplex</option>
                 <option value="casa">Casa</option>
                 <option value="terreno">Terreno</option>
                 <option value="local">Local Comercial / Stand</option>
+            </select>
+
+            <!-- NUEVO: Filtro Operación (Alquiler / Venta) -->
+            <select id="filtroOperacion" class="buscador-input" style="padding: 12px; border-radius: 12px; cursor: pointer;">
+                <option value="">🤝 Operación (Ambas)</option>
+                <option value="alquiler">Alquiler</option>
+                <option value="venta">Venta</option>
             </select>
             
             <!-- Filtro Distrito -->
@@ -288,7 +295,6 @@
             No se encontraron propiedades con esos filtros. Intente ampliar la búsqueda.
         </div>
     </div>
-    
 
  
     <h2 id="alquileres" style="border-bottom: 3px solid #553026; padding-bottom: 10px; margin-top: 50px;">🔑 PROPIEDADES EN ALQUILER</h2>
@@ -1177,10 +1183,10 @@ function actualizarFoto() {
 }
 
 
-
 // --- LÓGICA DEL BUSCADOR AVANZADO ---
 document.addEventListener('DOMContentLoaded', () => {
     const filtroTipo = document.getElementById('filtroTipo');
+    const filtroOperacion = document.getElementById('filtroOperacion'); // NUEVO FILTRO
     const filtroDistrito = document.getElementById('filtroDistrito');
     const filtroMoneda = document.getElementById('filtroMoneda');
     const filtroPrecioMax = document.getElementById('filtroPrecioMax');
@@ -1190,6 +1196,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function aplicarFiltros() {
         let valTipo = filtroTipo.value.toLowerCase();
+        let valOperacion = filtroOperacion.value.toLowerCase(); // NUEVO VALOR
         let valDistrito = filtroDistrito.value.toLowerCase();
         let valMoneda = filtroMoneda.value;
         let valPrecioMax = parseFloat(filtroPrecioMax.value);
@@ -1210,13 +1217,20 @@ document.addEventListener('DOMContentLoaded', () => {
                 else if (valTipo === "local" && !(texto.includes("local") || texto.includes("stand"))) matchTipo = false;
             }
 
-            // 2. Validar Distrito
+            // 2. Validar Operación (Venta / Alquiler) - NUEVO
+            let matchOperacion = true;
+            if (valOperacion !== "") {
+                // Comprueba si la palabra "venta" o "alquiler" está en la tarjeta
+                if (!texto.includes(valOperacion)) matchOperacion = false;
+            }
+
+            // 3. Validar Distrito
             let matchDistrito = true;
             if (valDistrito !== "" && !texto.includes(valDistrito)) {
                 matchDistrito = false;
             }
 
-            // 3. Validar Moneda y Precio
+            // 4. Validar Moneda y Precio
             let matchPrecio = true;
             if (valMoneda !== "" || validPrecioMax) {
                 let priceRegex = /(S\/|US\$)\s*([\d,]+(?:\.\d+)?)/g;
@@ -1243,8 +1257,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             }
 
-            // Visualizar
-            if (matchTipo && matchDistrito && matchPrecio) {
+            // Visualizar (agregamos matchOperacion a la condición)
+            if (matchTipo && matchOperacion && matchDistrito && matchPrecio) {
                 propiedad.style.display = '';
                 propiedadesVisibles++;
             } else {
@@ -1261,6 +1275,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Ejecutar filtro automáticamente cuando cambian los valores
     filtroTipo.addEventListener('change', aplicarFiltros);
+    filtroOperacion.addEventListener('change', aplicarFiltros); // NUEVO EVENTO
     filtroDistrito.addEventListener('change', aplicarFiltros);
     filtroMoneda.addEventListener('change', aplicarFiltros);
     filtroPrecioMax.addEventListener('input', aplicarFiltros);

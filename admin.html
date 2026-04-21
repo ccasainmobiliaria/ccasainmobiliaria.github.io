@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Panel Admin | Ccasa Inmobiliaria</title>
+    <style>
+        body { font-family: sans-serif; padding: 20px; text-align: center; display: none; } /* Oculto por defecto hasta validar */
+    </style>
+</head>
+<body>
+
+    <h1 style="color: #341b18;">Bienvenido al Panel de Administración</h1>
+    <p>¡Si estás viendo esto, es porque iniciaste sesión correctamente!</p>
+    
+    <!-- Aquí irá el formulario para subir casas en el futuro -->
+
+    <button id="btnSalir" style="background: red; color: white; padding: 10px 20px; border: none; cursor: pointer; margin-top: 20px;">Cerrar Sesión</button>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+        // Importamos herramientas de sesión
+        import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
+
+        // PEGA TU CONFIGURACIÓN DE FIREBASE AQUÍ
+        const firebaseConfig = {
+          apiKey: "AIzaSyBPu9wKh7WkT7fBrj8aJd3Pd5gZXO-0-IQ",
+          authDomain: "ccasa-inmobiliaria-app.firebaseapp.com",
+          projectId: "ccasa-inmobiliaria-app",
+          storageBucket: "ccasa-inmobiliaria-app.firebasestorage.app",
+          messagingSenderId: "492367333280",
+          appId: "1:492367333280:web:7a80ccb7a0898f0c1f46c5"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+
+        // EL "GUARDIA DE SEGURIDAD"
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                // Hay un usuario logueado, mostramos la página
+                document.body.style.display = 'block';
+                console.log("Logueado como:", user.email);
+            } else {
+                // NO hay nadie logueado, lo regresamos al login
+                window.location.href = "login.html";
+            }
+        });
+
+        // Botón para cerrar sesión
+        document.getElementById('btnSalir').addEventListener('click', () => {
+            signOut(auth).then(() => {
+                window.location.href = "login.html";
+            });
+        });
+    </script>
+</body>
+</html>

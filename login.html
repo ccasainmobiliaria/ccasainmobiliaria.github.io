@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acceso Administrativo | Ccasa Inmobiliaria</title>
+    <style>
+        body { font-family: sans-serif; background-color: #f9f8f6; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+        .login-box { background: white; padding: 40px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); width: 100%; max-width: 350px; text-align: center; }
+        input { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box; }
+        button { background-color: #341b18; color: white; border: none; padding: 12px; width: 100%; border-radius: 6px; font-weight: bold; cursor: pointer; margin-top: 10px; }
+        button:hover { background-color: #553026; }
+        #mensajeError { color: red; font-size: 14px; display: none; margin-top: 10px; }
+    </style>
+</head>
+<body>
+
+    <div class="login-box">
+        <h2 style="color: #341b18; margin-top: 0;">Panel de Control</h2>
+        <p style="color: #666; font-size: 14px;">Solo personal autorizado</p>
+        
+        <input type="email" id="email" placeholder="Correo electrónico">
+        <input type="password" id="password" placeholder="Contraseña">
+        
+        <button id="btnIngresar">INGRESAR</button>
+        <p id="mensajeError">Correo o contraseña incorrectos.</p>
+    </div>
+
+    <!-- SCRIPT DE FIREBASE -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+        // Importamos la herramienta de Autenticación
+        import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
+
+        // PEGA TU CONFIGURACIÓN DE FIREBASE AQUÍ
+       const firebaseConfig = {
+  apiKey: "AIzaSyBPu9wKh7WkT7fBrj8aJd3Pd5gZXO-0-IQ",
+  authDomain: "ccasa-inmobiliaria-app.firebaseapp.com",
+  projectId: "ccasa-inmobiliaria-app",
+  storageBucket: "ccasa-inmobiliaria-app.firebasestorage.app",
+  messagingSenderId: "492367333280",
+  appId: "1:492367333280:web:7a80ccb7a0898f0c1f46c5"
+};
+
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app); // Inicializamos el sistema de Login
+
+        // Lógica al hacer clic en Ingresar
+        document.getElementById('btnIngresar').addEventListener('click', () => {
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            // Función de Firebase para verificar clave
+            signInWithEmailAndPassword(auth, email, password)
+                .then((userCredential) => {
+                    // ¡Clave correcta! Redirigir al panel de administración
+                    window.location.href = "admin.html";
+                })
+                .catch((error) => {
+                    // Clave incorrecta
+                    console.error("Error:", error.message);
+                    document.getElementById('mensajeError').style.display = 'block';
+                });
+        });
+    </script>
+</body>
+</html>

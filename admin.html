@@ -2,55 +2,229 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Panel Admin | Ccasa Inmobiliaria</title>
+    <title>Subir Propiedad | Panel Admin</title>
     <style>
-        body { font-family: sans-serif; padding: 20px; text-align: center; display: none; } /* Oculto por defecto hasta validar */
+        body { font-family: sans-serif; background-color: #f4f4f4; padding: 20px; display: none; } /* Oculto hasta validar login */
+        .admin-container { max-width: 600px; margin: auto; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        h2 { color: #341b18; margin-top: 0; border-bottom: 2px solid #eee; padding-bottom: 10px; }
+        
+        label { font-weight: bold; display: block; margin-top: 15px; font-size: 14px; color: #555; }
+        input, select, textarea { width: 100%; padding: 10px; margin-top: 5px; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box; }
+        
+        button { background-color: #28a745; color: white; border: none; padding: 15px; width: 100%; border-radius: 5px; font-weight: bold; cursor: pointer; margin-top: 20px; font-size: 16px; }
+        button:hover { background-color: #218838; }
+        button:disabled { background-color: #ccc; cursor: not-allowed; }
+
+        .header-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+        #btnSalir { background: #d9534f; color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; width: auto; margin: 0;}
     </style>
 </head>
 <body>
 
-    <h1 style="color: #341b18;">Bienvenido al Panel de Administración</h1>
-    <p>¡Si estás viendo esto, es porque iniciaste sesión correctamente!</p>
-    
-    <!-- Aquí irá el formulario para subir casas en el futuro -->
+    <div class="header-top">
+        <span id="userEmail" style="font-weight: bold; color: #555;">Usuario</span>
+        <button id="btnSalir">Cerrar Sesión</button>
+    </div>
 
-    <button id="btnSalir" style="background: red; color: white; padding: 10px 20px; border: none; cursor: pointer; margin-top: 20px;">Cerrar Sesión</button>
+    <div class="admin-container">
+        <h2>🏠 Añadir Nueva Propiedad</h2>
+        
+        <label>Título (Ej. Hermosa casa en Surco)</label>
+        <input type="text" id="titulo" required>
 
+        <label>Operación</label>
+        <select id="operacion">
+            <option value="Venta">Venta</option>
+            <option value="Alquiler">Alquiler</option>
+        </select>
+
+        <label>Distrito</label>
+        <select id="distrito" required>
+            <option value="" disabled selected>Seleccione un distrito...</option>
+            <optgroup label="LIMA (Orden Alfabético)">
+                <option value="Ancón">Ancón</option>
+                <option value="Ate">Ate</option>
+                <option value="Barranco">Barranco</option>
+                <option value="Breña">Breña</option>
+                <option value="Carabayllo">Carabayllo</option>
+                <option value="Chaclacayo">Chaclacayo</option>
+                <option value="Chorrillos">Chorrillos</option>
+                <option value="Cieneguilla">Cieneguilla</option>
+                <option value="Comas">Comas</option>
+                <option value="El Agustino">El Agustino</option>
+                <option value="Independencia">Independencia</option>
+                <option value="Jesús María">Jesús María</option>
+                <option value="La Molina">La Molina</option>
+                <option value="La Victoria">La Victoria</option>
+                <option value="Lince">Lince</option>
+                <option value="Los Olivos">Los Olivos</option>
+                <option value="Lurigancho-Chosica">Lurigancho-Chosica</option>
+                <option value="Lurín">Lurín</option>
+                <option value="Magdalena del Mar">Magdalena del Mar</option>
+                <option value="Miraflores">Miraflores</option>
+                <option value="Pachacámac">Pachacámac</option>
+                <option value="Pucusana">Pucusana</option>
+                <option value="Pueblo Libre">Pueblo Libre</option>
+                <option value="Puente Piedra">Puente Piedra</option>
+                <option value="Punta Hermosa">Punta Hermosa</option>
+                <option value="Punta Negra">Punta Negra</option>
+                <option value="Rímac">Rímac</option>
+                <option value="San Bartolo">San Bartolo</option>
+                <option value="San Borja">San Borja</option>
+                <option value="San Isidro">San Isidro</option>
+                <option value="San Juan de Lurigancho">San Juan de Lurigancho</option>
+                <option value="San Juan de Miraflores">San Juan de Miraflores</option>
+                <option value="San Luis">San Luis</option>
+                <option value="San Martín de Porres">San Martín de Porres</option>
+                <option value="San Miguel">San Miguel</option>
+                <option value="Santa Anita">Santa Anita</option>
+                <option value="Santa María del Mar">Santa María del Mar</option>
+                <option value="Santa Rosa">Santa Rosa</option>
+                <option value="Santiago de Surco">Santiago de Surco</option>
+                <option value="Surquillo">Surquillo</option>
+                <option value="Villa El Salvador">Villa El Salvador</option>
+                <option value="Villa María del Triunfo">Villa María del Triunfo</option>
+            </optgroup>
+            <optgroup label="CALLAO">
+                <option value="Bellavista">Bellavista</option>
+                <option value="Callao">Callao (Cercado)</option>
+                <option value="Carmen de La Legua">Carmen de La Legua</option>
+                <option value="La Perla">La Perla</option>
+                <option value="La Punta">La Punta</option>
+                <option value="Mi Perú">Mi Perú</option>
+                <option value="Ventanilla">Ventanilla</option>
+            </optgroup>
+            <optgroup label="OTROS">
+                <option value="Otra Provincia">Otra Provincia / Sur Chico</option>
+            </optgroup>
+        </select>
+
+        <label>Precio (Ej. US$ 250,000 o S/ 2,500)</label>
+        <input type="text" id="precio" required>
+
+        <label>Descripción corta</label>
+        <textarea id="descripcion" rows="3" placeholder="3 habitaciones, 2 baños..."></textarea>
+
+        <label>📸 Foto Principal</label>
+       <input type="file" id="fotos" accept="image/*" multiple required>
+        <small style="color:#666; display:block; margin-bottom:15px;">Puedes seleccionar varias fotos a la vez (Recuerda comprimirlas antes).</small>
+
+        <button id="btnSubir">Subir Propiedad a Internet</button>
+        <p id="mensajeEstado" style="text-align: center; font-weight: bold; color: #0056b3; display: none;">Subiendo imagen...</p>
+    </div>
+
+    <!-- SCRIPT DE FIREBASE E IMGBB -->
     <script type="module">
+        // 1. IMPORTACIONES DE FIREBASE (Ya no importamos Storage)
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
-        // Importamos herramientas de sesión
         import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
+        import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
 
-        // PEGA TU CONFIGURACIÓN DE FIREBASE AQUÍ
+        // 2. PEGA TU CONFIGURACIÓN DE FIREBASE AQUÍ
         const firebaseConfig = {
-          apiKey: "AIzaSyBPu9wKh7WkT7fBrj8aJd3Pd5gZXO-0-IQ",
+        apiKey: "AIzaSyBPu9wKh7WkT7fBrj8aJd3Pd5gZXO-0-IQ",
           authDomain: "ccasa-inmobiliaria-app.firebaseapp.com",
-          projectId: "ccasa-inmobiliaria-app",
-          storageBucket: "ccasa-inmobiliaria-app.firebasestorage.app",
-          messagingSenderId: "492367333280",
+         projectId: "ccasa-inmobiliaria-app",
+        storageBucket: "ccasa-inmobiliaria-app.firebasestorage.app",
+        messagingSenderId: "492367333280",
           appId: "1:492367333280:web:7a80ccb7a0898f0c1f46c5"
-        };
+           };
 
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
+        const db = getFirestore(app);
 
-        // EL "GUARDIA DE SEGURIDAD"
+        // 3. PEGA TU LLAVE DE IMGBB AQUÍ (No borres las comillas)
+        const IMGBB_API_KEY = "8a2fdc5a1fce784dc409a31007e87602";
+
+        // 4. EL GUARDIA DE SEGURIDAD
         onAuthStateChanged(auth, (user) => {
             if (user) {
-                // Hay un usuario logueado, mostramos la página
                 document.body.style.display = 'block';
-                console.log("Logueado como:", user.email);
+                document.getElementById('userEmail').innerText = "Logueado como: " + user.email;
             } else {
-                // NO hay nadie logueado, lo regresamos al login
                 window.location.href = "login.html";
             }
         });
 
-        // Botón para cerrar sesión
         document.getElementById('btnSalir').addEventListener('click', () => {
-            signOut(auth).then(() => {
-                window.location.href = "login.html";
-            });
+            signOut(auth).then(() => { window.location.href = "login.html"; });
+        });
+
+        // 5. LÓGICA PARA SUBIR LA PROPIEDAD
+      document.getElementById('btnSubir').addEventListener('click', async () => {
+            
+            const titulo = document.getElementById('titulo').value;
+            const operacion = document.getElementById('operacion').value;
+            const distrito = document.getElementById('distrito').value;
+            const precio = document.getElementById('precio').value;
+            const descripcion = document.getElementById('descripcion').value;
+            
+            // AHORA CAPTURAMOS TODAS LAS FOTOS SELECCIONADAS
+            const archivosFotos = document.getElementById('fotos').files;
+
+            if(!titulo || !precio || archivosFotos.length === 0) {
+                alert("Por favor llena el título, precio y selecciona al menos 1 foto.");
+                return;
+            }
+
+            const btn = document.getElementById('btnSubir');
+            const msj = document.getElementById('mensajeEstado');
+            btn.disabled = true;
+            msj.style.display = 'block';
+
+            try {
+                // PASO A: Subir las fotos a ImgBB una por una
+                let linksDeLasFotos = []; // Aquí guardaremos los links que nos devuelva ImgBB
+                
+                for (let i = 0; i < archivosFotos.length; i++) {
+                    msj.innerText = `Subiendo foto ${i + 1} de ${archivosFotos.length} al servidor...`;
+                    
+                    const formData = new FormData();
+                    formData.append("image", archivosFotos[i]);
+
+                    const respuestaImgbb = await fetch(`https://api.imgbb.com/1/upload?key=${IMGBB_API_KEY}`, {
+                        method: 'POST',
+                        body: formData
+                    });
+                    
+                    const datosImgbb = await respuestaImgbb.json();
+                    
+                    if (datosImgbb.success) {
+                        linksDeLasFotos.push(datosImgbb.data.url); // Guardamos el link en la lista
+                    } else {
+                        throw new Error("Falló la subida de una imagen");
+                    }
+                }
+
+                // PASO B: Guardar todo en Firebase (Firestore)
+                msj.innerText = "¡Fotos subidas! Guardando propiedad en la base de datos...";
+                await addDoc(collection(db, "Propiedades"), {
+                    titulo: titulo,
+                    operacion: operacion,
+                    distrito: distrito,
+                    precio: precio,
+                    descripcion: descripcion,
+                    imagenes: linksDeLasFotos, // ¡AQUÍ GUARDAMOS LA LISTA ENTERA DE LINKS!
+                    fechaCreacion: new Date()
+                });
+
+                alert("¡Propiedad con galería subida exitosamente!");
+                
+                // Limpiar formulario
+                document.getElementById('titulo').value = '';
+                document.getElementById('precio').value = '';
+                document.getElementById('descripcion').value = '';
+                document.getElementById('fotos').value = '';
+
+            } catch (error) {
+                console.error("Error:", error);
+                alert("Hubo un error al subir la propiedad.");
+            } finally {
+                btn.disabled = false;
+                btn.innerText = "Subir Propiedad a Internet";
+                msj.style.display = 'none';
+            }
         });
     </script>
 </body>

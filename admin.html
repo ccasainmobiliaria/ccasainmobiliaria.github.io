@@ -2,21 +2,32 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Subir Propiedad | Panel Admin</title>
+    <title>Panel Admin Completo | Ccasa Inmobiliaria</title>
     <style>
-        body { font-family: sans-serif; background-color: #f4f4f4; padding: 20px; display: none; } /* Oculto hasta validar login */
-        .admin-container { max-width: 600px; margin: auto; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        body { font-family: sans-serif; background-color: #f4f4f4; padding: 20px; display: none; }
+        .admin-container { max-width: 700px; margin: auto; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); margin-bottom: 20px; }
         h2 { color: #341b18; margin-top: 0; border-bottom: 2px solid #eee; padding-bottom: 10px; }
         
         label { font-weight: bold; display: block; margin-top: 15px; font-size: 14px; color: #555; }
         input, select, textarea { width: 100%; padding: 10px; margin-top: 5px; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box; }
         
-        button { background-color: #28a745; color: white; border: none; padding: 15px; width: 100%; border-radius: 5px; font-weight: bold; cursor: pointer; margin-top: 20px; font-size: 16px; }
-        button:hover { background-color: #218838; }
-        button:disabled { background-color: #ccc; cursor: not-allowed; }
-
         .header-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
         #btnSalir { background: #d9534f; color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; width: auto; margin: 0;}
+        
+        /* Botones Generales de Creación/Edición */
+        button { border: none; font-weight: bold; cursor: pointer; }
+        #btnSubir { background: #28a745; color: white; padding: 15px; width: 100%; border-radius: 5px; margin-top: 25px; font-size: 16px; transition: 0.3s; }
+        #btnSubir:disabled { background-color: #ccc; cursor: not-allowed; }
+        
+        #btnCancelarEdicion { background: #f39c12; color: white; padding: 15px; width: 100%; border-radius: 5px; margin-top: 10px; font-size: 16px; display: none; transition: 0.3s; }
+        
+        /* Lista inferior y sus botones (Borrar/Editar) */
+        .item-propiedad { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-start; background: #fafafa; padding: 15px; border: 1px solid #ddd; border-radius: 5px; margin-bottom: 10px;}
+        .item-titulo { font-weight: bold; color: #341b18; display: block; margin-bottom: 5px; font-size: 15px;}
+        .caja-botones { display: flex; gap: 10px; margin-top: 10px; }
+        .btn-borrar { background: #d9534f; color: white; padding: 8px 15px; font-size: 12px; border-radius: 4px; transition: 0.3s; }
+        .btn-editar { background: #3498db; color: white; padding: 8px 15px; font-size: 12px; border-radius: 4px; transition: 0.3s; }
+        .btn-borrar:hover, .btn-editar:hover { opacity: 0.8; transform: scale(1.05); }
     </style>
 </head>
 <body>
@@ -26,8 +37,9 @@
         <button id="btnSalir">Cerrar Sesión</button>
     </div>
 
-    <div class="admin-container">
-        <h2>🏠 Añadir Nueva Propiedad</h2>
+    <!-- === SECCIÓN 1: FORMULARIO (Crear y Editar) === -->
+    <div class="admin-container" id="seccionFormulario">
+        <h2 id="tituloFormulario">🏠 Añadir Nueva Propiedad</h2>
         
         <label>Título (Ej. Hermosa casa en Surco)</label>
         <input type="text" id="titulo" required>
@@ -41,7 +53,7 @@
         <label>Distrito</label>
         <select id="distrito" required>
             <option value="" disabled selected>Seleccione un distrito...</option>
-            <optgroup label="LIMA (Orden Alfabético)">
+            <optgroup label="LIMA">
                 <option value="Ancón">Ancón</option>
                 <option value="Ate">Ate</option>
                 <option value="Barranco">Barranco</option>
@@ -105,127 +117,208 @@
         <label>Descripción corta</label>
         <textarea id="descripcion" rows="3" placeholder="3 habitaciones, 2 baños..."></textarea>
 
-        <label>📸 Foto Principal</label>
-       <input type="file" id="fotos" accept="image/*" multiple required>
-        <small style="color:#666; display:block; margin-bottom:15px;">Puedes seleccionar varias fotos a la vez (Recuerda comprimirlas antes).</small>
+        <label>📸 Fotos (Si editas la casa, deja este botón en blanco para no borrar fotos antiguas)</label>
+        <input type="file" id="fotos" accept="image/*" multiple>
 
-        <button id="btnSubir">Subir Propiedad a Internet</button>
-        <p id="mensajeEstado" style="text-align: center; font-weight: bold; color: #0056b3; display: none;">Subiendo imagen...</p>
+        <p id="mensajeEstado" style="text-align: center; font-weight: bold; color: #0056b3; display: none;">Procesando operación...</p>
+        
+        <button id="btnSubir">✅ AGREGAR NUEVA PROPIEDAD</button>
+        <button id="btnCancelarEdicion">❌ CANCELAR LA EDICIÓN</button>
     </div>
 
-    <!-- SCRIPT DE FIREBASE E IMGBB -->
+    <!-- === SECCIÓN 2: LISTA DE BASE DE DATOS (NUEVA PARTE QUE TE FALTABA) === -->
+    <div class="admin-container">
+        <h2>📂 Mis Propiedades en Internet (Borrar y Editar)</h2>
+        <div id="listaPropiedadesBaseDatos">
+            <p>Cargando lista de propiedades de Firebase...</p>
+        </div>
+    </div>
+
+
+    <!-- SCRIPT DEL CEREBRO FIREBASE Y CRUD -->
     <script type="module">
-        // 1. IMPORTACIONES DE FIREBASE (Ya no importamos Storage)
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
         import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
-        import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
+        
+        // ¡Cuidado, incluímos 'updateDoc' para modificar datos!
+        import { getFirestore, collection, addDoc, getDocs, doc, deleteDoc, updateDoc } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
 
-        // 2. PEGA TU CONFIGURACIÓN DE FIREBASE AQUÍ
+        // CONFIGURACIONES GENERALES (Pegadas por TI en consultas anteriores)
         const firebaseConfig = {
-        apiKey: "AIzaSyBPu9wKh7WkT7fBrj8aJd3Pd5gZXO-0-IQ",
+          apiKey: "AIzaSyBPu9wKh7WkT7fBrj8aJd3Pd5gZXO-0-IQ",
           authDomain: "ccasa-inmobiliaria-app.firebaseapp.com",
-         projectId: "ccasa-inmobiliaria-app",
-        storageBucket: "ccasa-inmobiliaria-app.firebasestorage.app",
-        messagingSenderId: "492367333280",
+          projectId: "ccasa-inmobiliaria-app",
+          storageBucket: "ccasa-inmobiliaria-app.firebasestorage.app",
+          messagingSenderId: "492367333280",
           appId: "1:492367333280:web:7a80ccb7a0898f0c1f46c5"
-           };
+        };
+        const IMGBB_API_KEY = "8a2fdc5a1fce784dc409a31007e87602"; 
 
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
         const db = getFirestore(app);
 
-        // 3. PEGA TU LLAVE DE IMGBB AQUÍ (No borres las comillas)
-        const IMGBB_API_KEY = "8a2fdc5a1fce784dc409a31007e87602";
+        // ==== CEREBRO INTERNO PARA MODO EDITOR ====
+        let idPropiedadEditando = null;  // Identificador Secreto para Base DAtos.
+        let viejasFotosGaleria  = [];    // Cache del ImgBB Histórico del Dpto Editado.
 
-        // 4. EL GUARDIA DE SEGURIDAD
+        // MANTENER LOGIN ACTIVADO 
         onAuthStateChanged(auth, (user) => {
             if (user) {
                 document.body.style.display = 'block';
-                document.getElementById('userEmail').innerText = "Logueado como: " + user.email;
+                document.getElementById('userEmail').innerText = "Admistrador: " + user.email;
+                recargarCatalogoInferiorAdministracion() // Manda llamar al pintar lista. 
             } else {
                 window.location.href = "login.html";
             }
         });
+        document.getElementById('btnSalir').addEventListener('click', () => { signOut(auth); });
 
-        document.getElementById('btnSalir').addEventListener('click', () => {
-            signOut(auth).then(() => { window.location.href = "login.html"; });
-        });
-
-        // 5. LÓGICA PARA SUBIR LA PROPIEDAD
-      document.getElementById('btnSubir').addEventListener('click', async () => {
+        // ===== PASO 1 LÓGICO: EL CONTRUCTOR DE  CARGAR TARJETAS A LA  VISTA PARA MANUPULARLAS ===
+        async function recargarCatalogoInferiorAdministracion() {
+            const zonaContenedora = document.getElementById('listaPropiedadesBaseDatos');
+            zonaContenedora.innerHTML = ''; 
             
-            const titulo = document.getElementById('titulo').value;
-            const operacion = document.getElementById('operacion').value;
-            const distrito = document.getElementById('distrito').value;
-            const precio = document.getElementById('precio').value;
-            const descripcion = document.getElementById('descripcion').value;
+            const peticionFirebaseDatosAll = await getDocs(collection(db, "Propiedades"));
             
-            // AHORA CAPTURAMOS TODAS LAS FOTOS SELECCIONADAS
-            const archivosFotos = document.getElementById('fotos').files;
+            if (peticionFirebaseDatosAll.empty) {  zonaContenedora.innerHTML = '<p style="color:gray"> No tienes propiedades Subidas. Publica 1 de Ceros Arriba </p>'; return; }
 
-            if(!titulo || !precio || archivosFotos.length === 0) {
-                alert("Por favor llena el título, precio y selecciona al menos 1 foto.");
-                return;
-            }
-
-            const btn = document.getElementById('btnSubir');
-            const msj = document.getElementById('mensajeEstado');
-            btn.disabled = true;
-            msj.style.display = 'block';
-
-            try {
-                // PASO A: Subir las fotos a ImgBB una por una
-                let linksDeLasFotos = []; // Aquí guardaremos los links que nos devuelva ImgBB
+            peticionFirebaseDatosAll.forEach((dataIdFBUnico_Housedato) => {
+                const valuesRealInmuelbeDB = dataIdFBUnico_Housedato.data();
                 
-                for (let i = 0; i < archivosFotos.length; i++) {
-                    msj.innerText = `Subiendo foto ${i + 1} de ${archivosFotos.length} al servidor...`;
+                const recuadroDinamcioCardHtmlx1 = document.createElement('div');
+                recuadroDinamcioCardHtmlx1.className = 'item-propiedad'; 
+                
+                //Pintando cada Cajoncillo Con sus Opc 
+                recuadroDinamcioCardHtmlx1.innerHTML = `
+                    <div style="flex:1">
+                        <span class="item-titulo">${valuesRealInmuelbeDB.titulo}</span>
+                        <div style="font-size:12px; color:#666;">📍 ${valuesRealInmuelbeDB.distrito}  --- Opción Catalogado como:  ( ${valuesRealInmuelbeDB.operacion} )</div>
+                    </div>
                     
-                    const formData = new FormData();
-                    formData.append("image", archivosFotos[i]);
+                    <div class="caja-botones"> 
+                        <button class="btn-editar">✏️ Modificar Esta  </button> 
+                        <button class="btn-borrar">🗑️ Eliminar/Vendido </button>
+                    </div>
+                `;
 
-                    const respuestaImgbb = await fetch(`https://api.imgbb.com/1/upload?key=${IMGBB_API_KEY}`, {
-                        method: 'POST',
-                        body: formData
-                    });
-                    
-                    const datosImgbb = await respuestaImgbb.json();
-                    
-                    if (datosImgbb.success) {
-                        linksDeLasFotos.push(datosImgbb.data.url); // Guardamos el link en la lista
-                    } else {
-                        throw new Error("Falló la subida de una imagen");
-                    }
-                }
-
-                // PASO B: Guardar todo en Firebase (Firestore)
-                msj.innerText = "¡Fotos subidas! Guardando propiedad en la base de datos...";
-                await addDoc(collection(db, "Propiedades"), {
-                    titulo: titulo,
-                    operacion: operacion,
-                    distrito: distrito,
-                    precio: precio,
-                    descripcion: descripcion,
-                    imagenes: linksDeLasFotos, // ¡AQUÍ GUARDAMOS LA LISTA ENTERA DE LINKS!
-                    fechaCreacion: new Date()
+               // == A:  LOGÍCA  "CUANDO DESEO APARTAR DE INTERNET ESA CARD ROJA !!  ! =" ==
+                const activadorROjoDanger = recuadroDinamcioCardHtmlx1.querySelector('.btn-borrar');
+                activadorROjoDanger.addEventListener('click', async () => {
+                     // Solo Sí esta seguro 100 ! .. Delete Docs y Reinicia Pag!  ::   !! 
+                    if (confirm(`!Cuidado Admín! \n Borras DE BaseDato para El Püblico Permanentemente La ficha : \n ->  "${valuesRealInmuelbeDB.titulo}" \n  ¿Desea Continuarla ??..`)) {
+                        activadorROjoDanger.innerText = "..Eliminando...";  
+                        await deleteDoc(doc(db, "Propiedades", dataIdFBUnico_Housedato.id)); 
+                        alert("Acción Requerida Resuelta Exitosa... ");   recargarCatalogoInferiorAdministracion(); RestableCerApagadosParaModificcionesL() } 
                 });
 
-                alert("¡Propiedad con galería subida exitosamente!");
-                
-                // Limpiar formulario
-                document.getElementById('titulo').value = '';
-                document.getElementById('precio').value = '';
-                document.getElementById('descripcion').value = '';
-                document.getElementById('fotos').value = '';
+               // ==  B LOGíca :  ( REBOTAMOS INFO HACIA SUPERIOR MODO ACTUALIADOr!!!) ============! !   ======: !  
+                const botoLevaModfifyArrivaZ = recuadroDinamcioCardHtmlx1.querySelector('.btn-editar');
+                botoLevaModfifyArrivaZ.addEventListener('click', () => { 
+                   
+                    window.scrollTo({top:0, behavior:"smooth"}); // Viajer arriba por Css... 
+                     
+                     document.getElementById('tituloFormulario').innerText = "🛠️ Editando Valores De Tú Dpto / Casa ... ";  // titulo Arroja Edicion!! 
 
-            } catch (error) {
-                console.error("Error:", error);
-                alert("Hubo un error al subir la propiedad.");
-            } finally {
-                btn.disabled = false;
-                btn.innerText = "Subir Propiedad a Internet";
-                msj.style.display = 'none';
-            }
-        });
+                     // Vacío datos Viejos desde Fb a Cuadritos ! :
+                     document.getElementById('titulo').value = valuesRealInmuelbeDB.titulo;  
+                     document.getElementById('operacion').value = valuesRealInmuelbeDB.operacion;
+                     document.getElementById('distrito').value = valuesRealInmuelbeDB.distrito || ""; 
+                     document.getElementById('precio').value = valuesRealInmuelbeDB.precio;  
+                     document.getElementById('descripcion').value = valuesRealInmuelbeDB.descripcion;  
+                  
+                     document.getElementById('btnSubir').innerText = "🔄 EDITAR  E INTRODUCIR POR ACTUALIAZIÖNES ...";
+                     document.getElementById('btnSubir').style.background="#3498db" 
+                     document.getElementById('btnCancelarEdicion').style.display='block';  // Salgo boton Amarillo
+
+                    // LA CHAVE ALMACEN Y LINK PASADO NO Mover NADA AQUï: !!
+                    idPropiedadEditando = dataIdFBUnico_Housedato.id; // Activao EdicionMode Universal JS !!  ! !
+                    viejasFotosGaleria = valuesRealInmuelbeDB.imagenes || [valuesRealInmuelbeDB.imagenURL];  
+               }); 
+               
+               zonaContenedora.appendChild(recuadroDinamcioCardHtmlx1);  }); // Find  bucle de Fila FBD!! 
+         }
+
+
+
+        //  PASO 3 FINAL CREADORA SUPERIOR Y GUARDADA FIRE / IMPBG B ::::::::::: =============!!!!!:::.:::: ! :! !!!!!
+        //  ====== ==== =============== =====   --------------------------------------- -- - == -= -=================- 
+        
+        document.getElementById('btnSubir').addEventListener('click', async () => { 
+           
+           const Text11sValoresP =document.getElementById('titulo').value; 
+           const PresVpP       =document.getElementById('precio').value; 
+           const OpaassXpp    =document.getElementById('operacion').value; 
+           const DeskipcionesOp =document.getElementById('descripcion').value; 
+           const DisrrerXw_P =document.getElementById('distrito').value; 
+           const ImagenCoptuM = document.getElementById('fotos').files;
+            
+           if(!Text11sValoresP ||!PresVpP ||!DisrrerXw_P ){ alert("  Form Incompletes");return;}
+           if(!idPropiedadEditando && ImagenCoptuM.length===0){ alert(" ALARMA!: \n \n NO tienes Activadp Módulo Amarillo <Cancelar Editar>\n OSEASE!! >: Vas Suber NUEVa! PROPIEDad: \n EXIGIMES PONSGS GALeria Fotica Primero."); return;  }
+            
+           // INICAIANDO.. Apagnados Botonerias Genericas.  ! !!  . 
+           document.getElementById('btnSubir').disabled =true;  
+           document.getElementById('btnCancelarEdicion').style.display = 'none'; 
+           document.getElementById('mensajeEstado').style.display='block'; 
+             
+             try{  
+                let TRAYENDOBASEDEFOTORESPONDER  = viejasFotosGaleria ; // Dudo, ¿Hay Viejos ???.... OK ! Usa ESsos!!! ! !! :! .. . 
+              
+                if ( ImagenCoptuM.length > 0 ) { 
+                  TRAYENDOBASEDEFOTORESPONDER  =[];  // REVEARSOS , No . elijio Imageness Form , Saca Viejas por Renovo Nuebas   NUBE:: : !!!  . .
+
+                  for(let ioLoopC = 0 ; ioLoopC < ImagenCoptuM.length; ioLoopC++ ) {  
+                        document.getElementById('mensajeEstado').innerText="Trabajando Servidor Multi Foto IMG B :. \n Transcurridn Imagen " + (ioLoopC + 1 ) + " de Listas ";
+
+                        const fORMARRAYGEnNnnBBxxImgXXDSDf = new FormData();
+                        fORMARRAYGEnNnnBBxxImgXXDSDf.append('image',ImagenCoptuM[ ioLoopC] );
+
+                      const fetchXXRespBB = await fetch(`https://api.imgbb.com/1/upload?key=${IMGBB_API_KEY}`, {method: 'POST', body:fORMARRAYGEnNnnBBxxImgXXDSDf}); 
+                      const ParseJSON_AceptxDataImAaaXX  = await  fetchXXRespBB.json();  
+
+                       if ( ParseJSON_AceptxDataImAaaXX .success ){  
+                           TRAYENDOBASEDEFOTORESPONDER.push( ParseJSON_AceptxDataImAaaXX.data.url ) ;  }   // Llenamo Carrito A DB FBase .. .
+                  }  
+                }
+
+               
+                document.getElementById('mensajeEstado').innerText="Sincrozindos Base Db Oficial Cloud Central..."; 
+                //  ===== EVALAUCIONES DE CREAR NUEVO VVS A EDITADOS !!!=====  !!! !!    !! !!! ==    !!!! ==
+
+               if(idPropiedadEditando === null){    // NO ESTAMOS ACTUALIZNADO !!!
+                    
+                    await addDoc( collection(db,"Propiedades") , {  titulo: Text11sValoresP ,  operacion: OpaassXpp, distrito : DisrrerXw_P, precio:PresVpP,  descripcion: DeskipcionesOp,
+                      imagenes :TRAYENDOBASEDEFOTORESPONDER, fechaCreacion :new Date()  } ) ;   // Nuevo Total Fresshk
+                      
+                       alert(" ✅ Publicada Inmube al Catalogo . Vísble Publica ! " ) ; 
+                } 
+                else {     // Eyy!, !!  TENÍA LA  LAVESS Universal De Editar Activas !!!!! :: !!! Actualizacion !!!==== :: ::== !!!!
+                    await updateDoc(doc(db,"Propiedades" , idPropiedadEditando) , {
+                           titulo: Text11sValoresP , operacion:OpaassXpp, distrito: DisrrerXw_P, precio:PresVpP, descripcion:DeskipcionesOp,  
+                           imagenes : TRAYENDOBASEDEFOTORESPONDER  }); 
+                           
+                             alert(" 👍 EDIT REALIZANDO PERFECTOO!!! Creadoras Viales Modificnates DB !!!" ) ; 
+                } 
+
+                RestableCerApagadosParaModificcionesL()
+                recargarCatalogoInferiorAdministracion()  // Acata Nueva orden Refrech a Visual Abaja .. !!:::. !!! !!!  :::: 
+
+              } catch(FataLErrorDbdzXsswZcxcv ){ alert("Fallo Siniestrio Consolarlo de ImA BB Fichiers:" + FataLErrorDbdzXsswZcxcv  );   }
+             finally {   
+                  document.getElementById('btnSubir').disabled = false;    document.getElementById('mensajeEstado').style.display='none'; }
+         })
+         
+         // -_------- : CANCELADOES BOTON AUX O VACEAR TODO !!! :---:::: =---- ======= --------================ 
+         
+         document.getElementById('btnCancelarEdicion').addEventListener('click', RestableCerApagadosParaModificcionesL );
+
+         function  RestableCerApagadosParaModificcionesL(){ 
+              document.getElementById('tituloFormulario').innerText = "🏠 Añadir Nueva Propiedad ";
+              document.getElementById('titulo').value = '';   document.getElementById('precio').value = '';   document.getElementById('descripcion').value = '';   
+              document.getElementById('fotos').value = '';    document.getElementById('distrito').value = "";   document.getElementById('btnSubir').innerText ="✅ AGREGAR NUEVA PROPIEDAD AL CATÁLOGO"; 
+             document.getElementById('btnSubir').style.background="#28a745" ; document.getElementById('btnCancelarEdicion').style.display="none"; 
+             idPropiedadEditando = null;  viejasFotosGaleria = [];   // Anquilea Secretas De Evitatar Error !!
+         } 
     </script>
 </body>
 </html>

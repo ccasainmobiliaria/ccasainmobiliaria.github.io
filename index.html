@@ -243,18 +243,19 @@
 
 <nav class="nav-sticky">
     <a href="nosotros.html" target="_blank">👤 Nosotros</a>
-    <a href="#ventas">🏠 Ver Ventas</a>
-    <a href="#alquileres">🔑 Ver Alquileres</a>
-    <a href="#comercial">🏬 Locales y Terrenos</a>
+    <!-- Nuevos botones "rápidos" de filtros automáticos -->
+    <a href="#zona-catalogo" id="menu-ventas">🏠 Ver Ventas</a>
+    <a href="#zona-catalogo" id="menu-alquileres">🔑 Ver Alquileres</a>
+    <a href="#zona-catalogo" id="menu-comercial">🏬 Locales / Terrenos</a>
     <a href="#otros">✨ Otros Proyectos</a>
     <a href="#contacto" class="btn-contacto">📝 REGISTRAR VISITA</a>
 </nav>
-
 <div class="container">
 
 
    <!-- NUEVO BUSCADOR AVANZADO -->
-    <div class="buscador-container" style="margin-top: 20px;">
+   <!-- Le pusimos id="zona-catalogo" para que el menú de arriba caiga exacto aquí -->
+    <div class="buscador-container" id="zona-catalogo" style="margin-top: 20px;">
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 10px; margin-bottom: 15px;">
             <!-- Filtro Tipo -->
             <select id="filtroTipo" class="buscador-input" style="padding: 12px; border-radius: 12px; cursor: pointer;">
@@ -722,20 +723,23 @@ function actualizarFoto() {
 }
 
 
-// --- LÓGICA DEL BUSCADOR AVANZADO ---
+
+// --- LÓGICA DEL BUSCADOR AVANZADO CORREGIDO ---
 document.addEventListener('DOMContentLoaded', () => {
     const filtroTipo = document.getElementById('filtroTipo');
-    const filtroOperacion = document.getElementById('filtroOperacion'); // NUEVO FILTRO
+    const filtroOperacion = document.getElementById('filtroOperacion'); 
     const filtroDistrito = document.getElementById('filtroDistrito');
     const filtroMoneda = document.getElementById('filtroMoneda');
     const filtroPrecioMax = document.getElementById('filtroPrecioMax');
     const mensajeSinResultados = document.getElementById('mensajeSinResultados');
-    
-    const propiedades = document.querySelectorAll('.tarjeta-prop, #propiedad6, h2#otros ~ div[style*="border-radius: 15px"]');
 
+    // Mueve la detección al momento en que aplicamos el filtro
     function aplicarFiltros() {
+        // 🔥 ESTE ES EL GRAN CAMBIO: Buscar las casas en el instante exacto de filtrar, así detecta a las de Firebase.
+        const propiedades = document.querySelectorAll('.tarjeta-prop, #propiedad6, #propiedad13, h2#otros ~ div[style*="border-radius: 15px"]');
+
         let valTipo = filtroTipo.value.toLowerCase();
-        let valOperacion = filtroOperacion.value.toLowerCase(); // NUEVO VALOR
+        let valOperacion = filtroOperacion.value.toLowerCase(); 
         let valDistrito = filtroDistrito.value.toLowerCase();
         let valMoneda = filtroMoneda.value;
         let valPrecioMax = parseFloat(filtroPrecioMax.value);
@@ -756,10 +760,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 else if (valTipo === "local" && !(texto.includes("local") || texto.includes("stand"))) matchTipo = false;
             }
 
-            // 2. Validar Operación (Venta / Alquiler) - NUEVO
+            // 2. Validar Operación (Venta / Alquiler)
             let matchOperacion = true;
             if (valOperacion !== "") {
-                // Comprueba si la palabra "venta" o "alquiler" está en la tarjeta
                 if (!texto.includes(valOperacion)) matchOperacion = false;
             }
 
@@ -772,6 +775,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // 4. Validar Moneda y Precio
             let matchPrecio = true;
             if (valMoneda !== "" || validPrecioMax) {
+                // Buscamos S/ 1,000 o US$ 500,000
                 let priceRegex = /(S\/|US\$)\s*([\d,]+(?:\.\d+)?)/g;
                 let pricesFound = [];
                 let match;
@@ -796,7 +800,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             }
 
-            // Visualizar (agregamos matchOperacion a la condición)
+            // Mostrar u ocultar si aprueba todos los exámenes de filtrado
             if (matchTipo && matchOperacion && matchDistrito && matchPrecio) {
                 propiedad.style.display = '';
                 propiedadesVisibles++;
@@ -805,22 +809,61 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
-        if (propiedadesVisibles === 0) {
+        // Manejo del Mensaje Rojo de "No Hay propiedades" 
+        if (propiedadesVisibles === 0 && propiedades.length > 0) { // Solo si ya hay cosas bajadas 
             mensajeSinResultados.style.display = 'block';
         } else {
             mensajeSinResultados.style.display = 'none';
         }
     }
 
-    // Ejecutar filtro automáticamente cuando cambian los valores
+    // Monitores: Activaran automáticamente Filtro Cada que toquen ! 
     filtroTipo.addEventListener('change', aplicarFiltros);
-    filtroOperacion.addEventListener('change', aplicarFiltros); // NUEVO EVENTO
+    filtroOperacion.addEventListener('change', aplicarFiltros); 
     filtroDistrito.addEventListener('change', aplicarFiltros);
     filtroMoneda.addEventListener('change', aplicarFiltros);
     filtroPrecioMax.addEventListener('input', aplicarFiltros);
+
+    // -- AQUÍ IBA LO ANTIGUO: 
+    // filtroPrecioMax.addEventListener('input', aplicarFiltros);
+
+    // ============================================
+    // MAGIA NUEVA: EL MENÚ SUPERIOR SE VUELVE FILTRO
+    // ============================================
+    const menuVentas = document.getElementById('menu-ventas');
+    const menuAlquileres = document.getElementById('menu-alquileres');
+    const menuComercial = document.getElementById('menu-comercial');
+
+    // Click en Menú "Ver Ventas"
+    if(menuVentas) {
+        menuVentas.addEventListener('click', () => {
+            filtroTipo.value = "";              // Se olvida si quería otra casa
+            filtroOperacion.value = "venta";    // Fija Botón A modo Ventas. 
+            aplicarFiltros();
+        });
+    }
+
+    // Click en Menú "Ver Alquileres"
+    if(menuAlquileres) {
+        menuAlquileres.addEventListener('click', () => {
+            filtroTipo.value = "";               // Se resetean si había un Distrito Atorado en cajitas 
+            filtroOperacion.value = "alquiler"; 
+            aplicarFiltros();
+        });
+    }
+
+    // Click en Menú "Ver Locales o Terrenos Comerciales"
+    if(menuComercial) {
+        menuComercial.addEventListener('click', () => {
+            filtroOperacion.value = "";           // Aquí No Pongo Operación en Alq. / Ven. ¡Aceptará Cualquier opertatoria Local!. 
+            filtroTipo.value = "local"; 
+            aplicarFiltros();
+        });
+    }
+
+
 });
-
-
+// -------------------------------------------------------------
 
 </script>
 

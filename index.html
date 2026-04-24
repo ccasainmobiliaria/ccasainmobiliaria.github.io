@@ -15,11 +15,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ccasa Inmobiliaria | Propiedades Exclusivas</title>
     
-    <!-- SEO y Vista previa para WhatsApp -->
-    <meta name="description" content="Ccasa Inmobiliaria - 11 años de experiencia. Alquiler y venta de departamentos, casas y locales comerciales.">
-    <meta property="og:title" content="Ccasa Inmobiliaria | Catálogo de Propiedades">
-    <meta property="og:description" content="Encuentra tu próximo hogar o inversión. Venta y alquiler en todo Lima.">
-    <link rel="icon" href="favicon.png" type="image/png"> 
+    <!-- SEO y Vista previa para WhatsApp, Facebook, LinkedIn -->
+    <meta name="description" content="Ccasa Inmobiliaria | Agencia líder. Más de 11 años gestionando alquileres y venta segura de Inmuebles en Perú. Especialistas Registrados.">
+    
+    <!-- Open Graph tags -->
+    <meta property="og:title" content="🏡 Ccasa Inmobiliaria | Compra, Alquila o Invierte con Confianza">
+    <meta property="og:description" content="Navega por nuestro Catálogo Inmobiliario virtual dinámico y ubica un hogar para tí a los mejores precios del mercado nacional y regional de Lima Central/Perú">
+    
+    <!-- URL y Tu Foto / LOGO a mostraste previemente cuando compartes el ENLACE AL PORTAL : -->
+    <!-- (ASEGÚRATE de subir el logo real aquí)  -->
+    <meta property="og:image" itemprop="image" content="https://i.ibb.co/6rW8VnN/Logo.png"> 
+    <meta property="og:type" content="website">
+
+    <link rel="icon" href="favicon.png" type="image/png">
     
     <style>
         html { scroll-behavior: smooth; scroll-padding-top: 80px; }
@@ -594,37 +602,36 @@
 
 
     <!-- FORMULARIO DE CONTACTO -->
+    <!-- FORMULARIO DE CONTACTO (ACTUALIZADO A DINÁMICO / CREADOR EXTERIOR DE SERVICIOS GENERAL) -->
     <section class="muro-seguridad" id="contacto">
-        <h2 style="margin-top: 0; color: #d9534f;">🛡️ Validación de Identidad Requerida</h2>
-        <p>Para proteger la privacidad de nuestros propietarios, la dirección exacta y visitas se brindan previa validación de datos.</p>
+        <h2 style="margin-top: 0; color: #d9534f;">🛡️ Validación de Identidad Requerida para Contactos</h2>
+        <p>Para la solicitud e informes completos garantizamos procesos óptimos que resguarden al cliente general o a sus intermediarios comerciales.</p>
         
         <form action="https://formsubmit.co/ccasainmobiliariacm@gmail.com" method="POST">
-            <input type="text" name="Nombre" placeholder="Nombre y Apellidos Completos" required>
-            <input type="text" name="Documento" placeholder="DNI o Carnet de Extranjería" required>
-            <input type="tel" name="WhatsApp" placeholder="WhatsApp: 999-999-999" required>
-            <select name="Propiedad_Elegida" style="margin-bottom:15px;">
-                <option disabled selected>¿En qué propiedad está interesado?</option>
-                <option value="Prop 1">Dpto Pueblo Libre</option>
-                <option value="Prop 4">Casa 5 Pisos Los Olivos</option>
-                <option value="Prop 5">Casa 3 Pisos Surco</option>
-                <option value="Prop 7">Local Gamarra</option>
-                <option value="Prop 8">Dpto Callao S/2300</option>
-                <option value="Prop 9">Duplex San Borja</option>
-                <option value="Prop 10">Local Av Faucett</option>
-                <option value="Prop 11">Dpto Callao S/1700</option>
-                <option value="Prop 12">Terreno Puente Piedra</option>
-                <option value="Prop 14">Dpto Surco Valle Hermoso</option>
-                <option value="Prop 15">Duplex Miraflores</option>
-                <option value="Prop 16">Terreno Surco Jockey Plaza</option>
-                <option value="Prop 17">Terreno Surco Alborada</option>
-                <optgroup label="⭐ Destacados Especiales">
-                    <option value="Prop 6,13,2,3">OTROS: Dptos. Magdalena, San Miguel o Molina</option>
-                </optgroup>
-            </select>
-            <button type="submit" style="background: #d9534f; margin-top: 10px; color: white; border: none; padding: 15px; width: 100%; border-radius: 5px; font-weight:bold; cursor:pointer;">ENVIAR SOLICITUD DE VISITA</button>
+            <!-- Hidden configuration for formsubmit to prevent annoying popups/errors later-->
+            <input type="hidden" name="_captcha" value="false">
+            <input type="hidden" name="_template" value="table">
+            
+            <input type="text" name="Nombre" placeholder="Nombre y Apellidos Completos (Obligatorio)" required>
+            <input type="text" name="Documento" placeholder="Número de Documentación. DNI, CEX o CE." required>
+            <input type="tel" name="WhatsApp" placeholder="Medio principal por Móvil / Contacto Ej 902XXXXXX " required>
+
+            <select name="Intencion_Inmobiliaria" style="margin-bottom:15px; padding: 10px; cursor: pointer;">
+                 <option disabled selected>--- Especifique en la pestaña su asunto central :  ---</option>
+                 <option value="Interés / Oferta - en un alquiler Base De Catálogo.">Alquilar y gestionar Arrendos Generales publicados</option>
+                 <option value="Someter propuestas por Ofertada VENTA en Inmuebles.">Adquisición / Análisis Ventas generales Catálogo Principal</option>
+                 <option value="Análisis a Proyectos Extensos por Cuadrados Proyectores / Terrenos Construcción (Casos Magdalena, Etc).">Proyecciones Destacadas Constructivo </option> 
+                  <optgroup label="✨ Exclusivo. Oferte, Administremos para Uds:">
+                     <option value="El cliente ha escogido el servicio administrativo Propio, que listemos SU Casona por nuestras firmas: ">¿Dueño de Propiedad ? Contáctenos con la dirección. Vendamos hoy con usted.</option> 
+                  </optgroup>           
+             </select>
+             
+              <label style="color:#553026;  font-size:0.9rem;" > Por precaución ¿Pondría escribir detalladamente, Cuales fueron la provincia(Ej, Callao) ó la tarifa monetaria específica descrita que encontró ? <label> 
+              <input type="text" name="Petición Escrita y de Identidad Propiedad o Dpto :" placeholder="Indíquela lo mejor descrito en sus observaciones si requiere: ">
+
+            <button type="submit" style="background: #d9534f; margin-top: 10px; color: white; border: none; padding: 15px; width: 100%; border-radius: 5px; font-weight:bold; cursor:pointer;">  REQUERIR ANÁLISIS DE LA PETICIÓN Y COTIZARLO POR EJECUTIVOS HOY</button>
         </form>
     </section>
-
 
 </div>
 <!-- CONTENEDOR DE LA GALERÍA EMERGENTE -->
@@ -893,6 +900,17 @@ document.addEventListener('DOMContentLoaded', () => {
                 const prop = doc.data(); 
                 const colorFondo = prop.operacion === 'Venta' ? '#c0392b' : '#341b18';
 
+                // --- TRATAMIENTO DE LA FECHA DE PUBLICACIÓN ---
+                let fechaFormateada = "";
+                if (prop.fechaCreacion) {
+                    const objFecha = prop.fechaCreacion.toDate(); // Convierte la fecha extraña de Firebase a algo que JS entiende
+                    const opciones = { day: 'numeric', month: 'long', year: 'numeric' };
+                    fechaFormateada = "Publicado el: " + objFecha.toLocaleDateString('es-ES', opciones);
+                } else {
+                    fechaFormateada = "Propiedad Activa"; // Si por error olvidaste guardar la fecha en algún momento, pondrá esto por seguridad
+                }
+                // ----------------------------------------------
+
                 // Preparamos las fotos
                 let htmlGaleria = '';
                 const listaFotos = prop.imagenes ? prop.imagenes : [prop.imagenURL];
@@ -908,6 +926,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 article.innerHTML = `
                     <div class="tarjeta-header" style="background: ${colorFondo};">
                         <h2 style="margin: 0;">${prop.titulo}</h2>
+
+                        <p style="margin: 3px 0; font-size: 13px; font-style: italic; opacity: 0.8;">${fechaFormateada}</p>
                         <p style="margin: 5px 0 0 0;">📍 ${prop.distrito}</p>
                     </div>
                     <div style="padding: 25px;">

@@ -14,6 +14,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ccasa Inmobiliaria | Propiedades Exclusivas</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
     
     <!-- SEO y Vista previa para WhatsApp, Facebook, LinkedIn -->
     <meta name="description" content="Ccasa Inmobiliaria | Agencia líder. Más de 11 años gestionando alquileres y venta segura de Inmuebles en Perú. Especialistas Registrados.">
@@ -30,15 +34,90 @@
     <link rel="icon" href="favicon.png" type="image/png">
     
     <style>
+
+    /* Barra de Progreso de Scroll */
+.scroll-progress-container {
+    position: fixed;
+    top: 66px; /* Ajusta este valor si tu menú es más alto/bajo */
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: transparent;
+    z-index: 999; /* Justo debajo del menú sticky */
+}
+.scroll-progress-bar {
+    height: 4px;
+    background: #d9534f; /* Rojo de tu marca para que resalte */
+    width: 0%;
+    border-radius: 0 2px 2px 0;
+}
+
+        /* --- SCROLLBAR PERSONALIZADO (ESTILO LUXURY) --- */
+::-webkit-scrollbar { width: 10px; }
+::-webkit-scrollbar-track { background: #f9f8f6; }
+::-webkit-scrollbar-thumb { 
+    background: #8a7c76; 
+    border-radius: 10px; 
+    border: 2px solid #f9f8f6;
+}
+::-webkit-scrollbar-thumb:hover { background: #553026; }
+
+#btnVolverArriba {
+    display: none; /* Oculto por defecto */
+    position: fixed;
+    bottom: 95px; /* Arriba del botón de WhatsApp */
+    right: 32px;
+    z-index: 2400;
+    font-size: 20px;
+    border: none;
+    outline: none;
+    background-color: #341b18;
+    color: white;
+    cursor: pointer;
+    padding: 12px 15px;
+    border-radius: 50px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    transition: 0.3s;
+}
+#btnVolverArriba:hover {
+    background-color: #553026;
+    transform: translateY(-3px);
+}
+
+
         html { scroll-behavior: smooth; scroll-padding-top: 80px; }
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: #333; margin: 0; background-color: #f9f8f6; } /* Beige cálido neutro para acoplar fondo marrón */
+        body { 
+    font-family: 'Poppins', sans-serif; /* Fuente limpia para leer */
+    line-height: 1.6; 
+    color: #333; 
+    margin: 0; 
+    background-color: #f9f8f6; 
+}
+h1, h2, h3, h4, .precio-tag { 
+    font-family: 'Playfair Display', serif; /* Fuente elegante para títulos y precios */
+} /* Beige cálido neutro para acoplar fondo marrón */
         
         /* Tema de marca (Tomado del logotipo #341b18 Dark Coffee) */
         header { background: #341b18; color: white; padding: 25px 20px; text-align: center; }
         .logo-header { max-height: 130px; object-fit: contain; border-radius: 8px; margin-bottom: 5px; }
         
         /* Menú Sticky */
-        .nav-sticky { position: -webkit-sticky; position: sticky; top: 0; z-index: 1000; background: #553026; padding: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
+        /* Menú Sticky con Efecto Cristal */
+.nav-sticky { 
+    position: -webkit-sticky; 
+    position: sticky; 
+    top: 0; 
+    z-index: 1000; 
+    background: rgba(85, 48, 38, 0.85); /* Marrón con 85% de opacidad */
+    backdrop-filter: blur(10px); /* Desenfoque tipo cristal */
+    -webkit-backdrop-filter: blur(10px); /* Soporte para Safari */
+    padding: 12px; 
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2); 
+    display: flex; 
+    flex-wrap: wrap; 
+    justify-content: center; 
+    gap: 10px; 
+}
         .nav-sticky a { color: white; text-decoration: none; font-size: 13px; border: 1px solid rgba(255,255,255,0.4); padding: 6px 14px; border-radius: 20px; transition: 0.3s; font-weight: 500; }
         .nav-sticky a:hover { background: white; color: #553026; }
         .nav-sticky .btn-contacto { background: #28a745; border: none; font-weight: bold; }
@@ -51,7 +130,24 @@
         .card { background: white; border: 1px solid #eadfd4; padding: 20px; border-radius: 8px; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
         
         footer { background: #1a1514; color: white; text-align: center; padding: 40px 20px; margin-top: 50px; border-top: 4px solid #553026;}
-        input, select, textarea { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box; }
+       /* Estilos Premium para Formulario */
+input, select, textarea { 
+    width: 100%; 
+    padding: 14px 15px; 
+    margin: 10px 0; 
+    border: 2px solid #eadfd4; 
+    background-color: #faf8f6;
+    border-radius: 8px; 
+    box-sizing: border-box; 
+    font-family: 'Poppins', sans-serif;
+    transition: all 0.3s ease; 
+}
+input:focus, select:focus, textarea:focus { 
+    border-color: #553026; 
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(85, 48, 38, 0.15); /* Resplandor marrón corporativo */
+    outline: none; 
+}
         
         /* Estilos de Tarjetas de Propiedades */
         .tarjeta-prop { border: 1px solid #eadfd4; border-radius: 15px; background: #fff; margin-bottom: 50px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); overflow: hidden; }
@@ -182,9 +278,22 @@
     background-color: #20b858;
 }
 .whatsapp-flotante svg {
+
+
     width: 35px;
     height: 35px;
     fill: currentColor;
+}
+
+/* Efecto de Pulso para llamar a la acción en WhatsApp */
+@keyframes pulse-whatsapp {
+    0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
+    70% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+}
+
+.whatsapp-flotante {
+    animation: pulse-whatsapp 2s infinite; /* Llama a la animación */
 }
 
 /* --- BANNER PRINCIPAL (HERO) --- */
@@ -226,6 +335,20 @@
     opacity: 1;
     transform: translateY(0);
 }
+
+/* Transición suave para todas las tarjetas */
+.tarjeta-prop, div[style*="border-radius: 15px"], article[style*="border-radius: 15px"] {
+    transition: transform 0.3s ease, box-shadow 0.3s ease !important;
+}
+
+/* Efecto de elevación e iluminación de sombra al pasar el mouse */
+.tarjeta-prop:hover, 
+div[style*="border-radius: 15px"]:hover, 
+article[style*="border-radius: 15px"]:hover {
+    transform: translateY(-8px) !important;
+    box-shadow: 0 15px 35px rgba(85, 48, 38, 0.15) !important; /* Sombra tono marrón corporativo */
+}
+
     </style>
 </head>
 <body>
@@ -242,6 +365,8 @@
 
 
 <nav class="nav-sticky">
+
+
     <a href="nosotros.html" target="_blank">👤 Nosotros</a>
     <!-- Nuevos botones "rápidos" de filtros automáticos -->
     <a href="#zona-catalogo" id="menu-ventas">🏠 Ver Ventas</a>
@@ -250,6 +375,12 @@
     <a href="#otros">✨ Otros Proyectos</a>
     <a href="#contacto" class="btn-contacto">📝 REGISTRAR VISITA</a>
 </nav>
+
+<div class="scroll-progress-container">
+    <div class="scroll-progress-bar" id="barraProgreso"></div>
+</div>
+
+
 <div class="container">
 
 
@@ -308,7 +439,13 @@
 
    <!-- === SECCIÓN 1 Y 2: ALQUILERES Y VENTAS BÁSICAS (¡LA QUE MANEJA FIREBASE!) === -->
 <div id="contenedor-dinamico">
-    <!-- Aquí aparecerán todas tus propiedades del día a día, insertadas por tu Script -->
+    <div id="loader-firebase" style="text-align: center; padding: 50px; color: #553026;">
+    <div style="border: 4px solid #f3f3f3; border-top: 4px solid #28a745; border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; margin: 0 auto 15px auto;"></div>
+    <p style="font-weight: 600;">Cargando catálogo actualizado...</p>
+</div>
+<style>
+    @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+</style><!-- Aquí aparecerán todas tus propiedades del día a día, insertadas por tu Script -->
 </div>
 
 
@@ -546,6 +683,9 @@
     <img id="lightbox-img" src="" alt="Vista ampliada">
     <span class="lightbox-next" onclick="cambiarFoto(1)">&#10095;</span>
 </div>
+
+<button id="btnVolverArriba" title="Volver arriba">⬆</button>
+
 <footer>
     <div style="max-width: 1000px; margin: auto;">
         <h3 style="margin: 0; font-size: 24px;">Ccasa Inmobiliaria</h3>
@@ -838,14 +978,17 @@ document.addEventListener('DOMContentLoaded', () => {
     const db = getFirestore(app);
 
     // 2. FUNCIÓN QUE DESCARGA Y DIBUJA LAS CASAS
-    async function cargarPropiedades() {
+   async function cargarPropiedades() {
         const contenedor = document.getElementById('contenedor-dinamico');
+        const loader = document.getElementById('loader-firebase'); // <-- NUEVO: Busca el cargador
         
         try {
             const querySnapshot = await getDocs(collection(db, "Propiedades"));
             
+            if(loader) loader.style.display = 'none'; // <-- NUEVO: Lo apaga al terminar de cargar
+            
             querySnapshot.forEach((doc) => {
-                const prop = doc.data(); 
+                const prop = doc.data();
                 const colorFondo = prop.operacion === 'Venta' ? '#c0392b' : '#341b18';
 
                 // --- TRATAMIENTO DE LA FECHA DE PUBLICACIÓN ---
@@ -928,6 +1071,34 @@ document.addEventListener('DOMContentLoaded', () => {
     // Ejecutar la carga al iniciar la página
     cargarPropiedades();
 </script>
+
+<script>
+    // Mostrar u ocultar el botón de Volver Arriba
+    window.onscroll = function() {
+        let btn = document.getElementById("btnVolverArriba");
+        if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+            btn.style.display = "block";
+        } else {
+            btn.style.display = "none";
+        }
+    };
+
+    // Al hacer clic, subir suavemente
+    document.getElementById("btnVolverArriba").addEventListener("click", function(){
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    // Animación de la Barra de Progreso
+window.addEventListener('scroll', function() {
+    let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+    let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    let scrolled = (winScroll / height) * 100;
+    document.getElementById("barraProgreso").style.width = scrolled + "%";
+});
+</script>
+
+
+
 
 </body>
 </html>

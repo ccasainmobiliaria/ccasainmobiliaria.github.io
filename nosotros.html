@@ -123,6 +123,15 @@ h1, h2, h3, h4, .precio-tag {
     animation: pulse-whatsapp 2s infinite; /* Llama a la animación */
 }
 
+.faq-container { margin: 40px 0; }
+    .faq-item { background: white; border: 1px solid #eadfd4; border-radius: 8px; margin-bottom: 10px; overflow: hidden; transition: 0.3s; }
+    .faq-item:hover { box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+    .faq-summary { padding: 20px; font-weight: bold; color: #341b18; cursor: pointer; display: flex; justify-content: space-between; align-items: center; list-style: none; }
+    .faq-summary::-webkit-details-marker { display: none; } /* Oculta la flecha por defecto */
+    .faq-summary::after { content: '+'; font-size: 20px; color: #d9534f; transition: 0.3s; }
+    .faq-item[open] .faq-summary::after { content: '-'; transform: rotate(180deg); }
+    .faq-content { padding: 0 20px 20px 20px; color: #555; font-size: 15px; border-top: 1px solid #eee; margin-top: 10px; padding-top: 15px; line-height: 1.6;}
+
     </style>
 </head>
 <body>
@@ -194,6 +203,34 @@ h1, h2, h3, h4, .precio-tag {
         <p class="stat-texto">% Transparencia</p>
     </div>
 </div>
+
+
+
+<div class="faq-container">
+    <h2 style="text-align: center; color: #341b18;">Preguntas Frecuentes</h2>
+    
+    <details class="faq-item">
+        <summary class="faq-summary">¿Cuáles son los requisitos básicos para alquilar?</summary>
+        <div class="faq-content">
+            Generalmente solicitamos: DNI vigente, sustento de ingresos de los últimos 3 meses (boletas de pago o recibos por honorarios), y un buen reporte en centrales de riesgo (Infocorp). Las condiciones varían según el propietario (usualmente 1 mes de adelanto y 1 de garantía).
+        </div>
+    </details>
+
+    <details class="faq-item">
+        <summary class="faq-summary">¿Qué beneficios tengo si ustedes administran mi venta?</summary>
+        <div class="faq-content">
+            Nos encargamos de la tasación comercial, fotografías profesionales, filtro exhaustivo de compradores potenciales (para su seguridad), redacción de contratos, asesoría legal en la notaría y marketing digital en nuestras plataformas.
+        </div>
+    </details>
+
+    <details class="faq-item">
+        <summary class="faq-summary">¿Están registrados legalmente?</summary>
+        <div class="faq-content">
+            Sí, contamos con el registro PN-0374 del Ministerio de Vivienda, Construcción y Saneamiento (MVCS). Esto garantiza que nuestro servicio cumple con todos los estándares legales y normativas del rubro inmobiliario en el Perú.
+        </div>
+    </details>
+</div>
+
 
 <script>
     // Script para animar los números cuando aparecen en pantalla

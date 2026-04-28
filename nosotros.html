@@ -278,7 +278,8 @@ h1, h2, h3, h4, .precio-tag {
             <a href="https://facebook.com/ccasainmobiliaria" target="_blank" style="color: #ecdcd4; text-decoration: none; font-weight: bold;">📘 Facebook</a>
             <a href="https://www.instagram.com/ccasainmobiliaria" target="_blank" style="color: #ecdcd4; text-decoration: none; font-weight: bold;">📸 Instagram</a>
             <a href="https://www.tiktok.com/@ccasainmobliaria" target="_blank" style="color: #ecdcd4; text-decoration: none; font-weight: bold;">🎵 TikTok</a>
-            <a href="mailto:ccasainmobiliariacm@gmail.com" style="color: #ecdcd4; text-decoration: none; font-weight: bold;">✉️ Correo</a>
+            <a href="mailto:ccasainmobiliariacm@gmail.com" onclick="abrirCorreoInteligente(event)" style="color: #ecdcd4; text-decoration: none; font-weight: bold; cursor: pointer;">✉️ Correo</a>
+
         </div>
          <p style="font-size: 0.8em; color: #8a7c76; margin-top: 30px;">
             © 2026 Todos los derechos reservados. Cumplimos con la Ley N° 29733 de Protección de Datos Personales en Perú.<br>
@@ -300,6 +301,25 @@ h1, h2, h3, h4, .precio-tag {
     </svg>
 </a>
 
+<script>
+    function abrirCorreoInteligente(event) {
+        // Detectamos si es celular o PC
+        const esCelular = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+        const tuCorreo = "ccasainmobiliariacm@gmail.com";
+        const asunto = "Consulta sobre propiedad - Ccasa Inmobiliaria";
 
+        if (!esCelular) {
+            // Si el usuario está en una PC o Laptop
+            event.preventDefault(); // Detiene el intento fallido de Windows
+            
+            // Crea el enlace directo para abrir el borrador web de Gmail
+            const enlaceGmailWeb = `https://mail.google.com/mail/?view=cm&fs=1&to=${tuCorreo}&su=${asunto}`;
+            
+            // Abre Gmail en una pestaña nueva lista para escribir
+            window.open(enlaceGmailWeb, '_blank');
+        }
+        // Si es celular, el script lo ignora y el "mailto:" normal abrirá la App de correo del teléfono.
+    }
+</script>
 </body>
 </html>

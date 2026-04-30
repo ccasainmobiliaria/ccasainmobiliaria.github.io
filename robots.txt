@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://ccasainmobiliaria.github.io/sitemap.xml
